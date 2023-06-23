@@ -6,6 +6,18 @@
   height: 40vmin;
   pointer-events: none;
 }
+input {
+  outline: none;
+}
+.hide_scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide_scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

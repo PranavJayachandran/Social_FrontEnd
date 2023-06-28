@@ -5,7 +5,7 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { ImFeed } from "react-icons/im";
 import Drawer_options from "./Drawer_options";
 import community from "../interfaces/community";
-import Community from "./Community";
+import Community_Drawer from "./Community_Drawer";
 import event from "../interfaces/event";
 import UpComingEvents from "./UpComingEvents";
 
@@ -85,7 +85,7 @@ var upcomingEvents: Array<event> = [
 
 const Drawer = () => {
   return (
-    <div className="pt-[450px] h-screen hide_scroll overflow-scroll bg-[#1e1f23] px-6 pb-20 text-[#8d8e92] w-3/12 flex flex-col justify-center gap-6">
+    <div className="pt-[460px] h-screen hide_scroll overflow-scroll bg-[#1e1f23] px-6 pb-20 text-[#8d8e92] w-3/12 flex flex-col justify-center gap-6">
       <div className="flex mt-12 gap-4 pl-3 items-center">
         <div className="h-14 w-14 bg-blue-100 rounded-full"></div>
         <div className="text-xl">Company name</div>
@@ -106,7 +106,7 @@ const Drawer = () => {
         <div className="text-[#cacbcf] text-lg mb-2">My community</div>
         <div className="flex flex-col">
           {communitys.map((item) => (
-            <Community item={item} />
+            <Community_Drawer item={item} />
           ))}
         </div>
       </div>

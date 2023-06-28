@@ -5,7 +5,7 @@ interface Props {
   item: community;
 }
 
-const Community = ({ item }: Props) => {
+const Community_Drawer = ({ item }: Props) => {
   return (
     <div className="flex rounded-xl gap-4 items-center py-4 px-2  cursor-pointer transition hover:bg-[#26272e]">
       <div className="rounded-full overflow-hidden">
@@ -18,4 +18,4 @@ const Community = ({ item }: Props) => {
     </div>
   );
 };
-export default Community;
+export default Community_Drawer;

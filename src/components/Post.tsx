@@ -1,6 +1,7 @@
 import React from "react";
 import post from "../interfaces/post";
 import { AiOutlineClockCircle } from "react-icons/ai";
+import { AiFillLike, AiFillDislike } from "react-icons/ai";
 
 interface Props {
   item: post;
@@ -19,6 +20,20 @@ const Post = ({ item }: Props) => {
         </div>
       </div>
       <div>{item.content}</div>
+      <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-1">
+          <div>
+            <AiFillLike className="h-5 w-5" />
+          </div>
+          <div className="text-sm">{item.likes}</div>
+        </div>
+        <div className="flex items-center gap-1">
+          <div>
+            <AiFillDislike className="h-5 w-5" />
+          </div>
+          <div className="text-sm">{item.dislikes}</div>
+        </div>
+      </div>
       <div className="flex gap-4 mt-6">
         <div className="h-8 w-8 rounded-full bg-teal-100"></div>
         <input
@@ -40,7 +55,7 @@ const Post = ({ item }: Props) => {
                   {item.comment}
                 </div>
                 <div className="flex text-xs w-full justify-between">
-                  <div>Reply Comment</div>
+                  {/* <div>Reply Comment</div> */}
                   <div className="flex">
                     <div className="border-r pr-2">Upvote {item.upvote}</div>
                     <div className="pl-2">Downvote {item.downvote}</div>

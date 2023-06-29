@@ -9,7 +9,9 @@ interface post {
   content: string;
   likes: number;
   dislikes: number;
+  comment_id: Array<number>;
   comments: Array<comment>;
+  id: number;
 }
 
 export default post;

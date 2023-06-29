@@ -11,6 +11,7 @@ const CreatePost = ({ setPosts }: Props) => {
 
   async function post() {
     var post: post = {
+      id: 0,
       username: "item.username",
       user_id: "1",
       user_image: "1",
@@ -20,10 +21,9 @@ const CreatePost = ({ setPosts }: Props) => {
       likes: 0,
       comments: [],
       dislikes: 0,
+      comment_id: [],
     };
-    setPosts((prevState) => ({
-      items: [post, ...prevState.items],
-    }));
+
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -41,8 +41,11 @@ const CreatePost = ({ setPosts }: Props) => {
 
     fetch("http://localhost:5000/post", requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => (post.id = parseInt(result)))
       .catch((error) => console.log("error", error));
+    setPosts((prevState) => ({
+      items: [post, ...prevState.items],
+    }));
     setContent("");
   }
   return (

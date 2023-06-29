@@ -1,7 +1,9 @@
 interface comment {
+  id: number;
   username: string;
-  comment: string;
-  upvote: number;
-  downvote: number;
+  comment_content: string;
+  upvotes: number;
+  downvotes: number;
+  user_image: string;
 }
 export default comment;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import CreatePost from "./CreatePost";
-import post from "../interfaces/post";
+import PostSate from "../../interfaces/postState";
+import post from "../../interfaces/post";
+import CreatePost from "../CreatePost";
 import Post from "./Post";
-import PostSate from "../interfaces/postState";
 
 // var posts: Array<post> = [
 //   {
@@ -67,6 +67,7 @@ const Posts = () => {
   async function MapToPosts(results: any) {
     results.map((item: any) => {
       var post: post = {
+        id: item.id,
         username: item.username,
         user_id: item.user_id,
         user_image: item.user_image,
@@ -75,14 +76,8 @@ const Posts = () => {
         content: item.content,
         likes: item.likes,
         dislikes: item.dislikes,
-        comments: [
-          {
-            username: "USer1",
-            comment: "This is good",
-            upvote: 20,
-            downvote: 1,
-          },
-        ],
+        comment_id: item.comment_id,
+        comments: item.comments,
       };
       setPosts((prevState) => ({
         items: [...prevState.items, post],

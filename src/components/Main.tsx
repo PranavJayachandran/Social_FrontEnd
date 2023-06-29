@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
-import Posts from "./Posts";
 import Trending_Friends from "./Trending_Friends";
+import Posts from "./Post/Posts";
 
 const Main = () => {
   return (

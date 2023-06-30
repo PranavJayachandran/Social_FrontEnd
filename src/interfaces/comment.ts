@@ -1,15 +1,15 @@
 interface comment {
   id: number;
   comment_content: string;
-  upvotes: number;
-  downvotes: number;
+  upvote: number;
+  downvote: number;
   table_name: {
     name: string;
     user_image: string;
   };
   upvotes_downvotes: [
     {
-      comment_id: number;
+      user_id: number;
       value: number;
       id: number;
     }

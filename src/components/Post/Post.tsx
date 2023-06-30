@@ -138,7 +138,7 @@ const Post = ({ item }: Props) => {
         <div className="flex items-center gap-1">
           <div>
             <AiFillLike
-              className={`h-5 w-5 ${
+              className={`h-5 w-5 cursor-pointer ${
                 liked_disliked_by_user == 1 ? "text-blue-500" : ""
               }`}
               onClick={like}
@@ -149,7 +149,7 @@ const Post = ({ item }: Props) => {
         <div className="flex items-center gap-1">
           <div>
             <AiFillDislike
-              className={`h-5 w-5 ${
+              className={`h-5 w-5 cursor-pointer ${
                 liked_disliked_by_user == -1 ? "text-red-500" : ""
               }`}
               onClick={dislike}
@@ -162,6 +162,7 @@ const Post = ({ item }: Props) => {
         item={post.comments}
         post_id={post.id}
         comment_id={post.comment_id}
+        user_id={post.user_id}
       />
     </div>
   );

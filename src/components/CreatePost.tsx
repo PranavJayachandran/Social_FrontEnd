@@ -22,6 +22,13 @@ const CreatePost = ({ setPosts }: Props) => {
       comments: [],
       dislikes: 0,
       comment_id: [],
+      likes_dislikes: [
+        {
+          value: 1,
+          user_id: 1,
+          id: 0,
+        },
+      ],
     };
 
     var myHeaders = new Headers();
@@ -41,11 +48,14 @@ const CreatePost = ({ setPosts }: Props) => {
 
     fetch("http://localhost:5000/post", requestOptions)
       .then((response) => response.text())
-      .then((result) => (post.id = parseInt(result)))
+      .then((result) => {
+        post.id = parseInt(result);
+        setPosts((prevState) => ({
+          items: [post, ...prevState.items],
+        }));
+      })
       .catch((error) => console.log("error", error));
-    setPosts((prevState) => ({
-      items: [post, ...prevState.items],
-    }));
+
     setContent("");
   }
   return (

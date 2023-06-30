@@ -12,6 +12,13 @@ interface post {
   comment_id: Array<number>;
   comments: Array<comment>;
   id: number;
+  likes_dislikes: [
+    {
+      value: number;
+      user_id: number;
+      id: number;
+    }
+  ];
 }
 
 export default post;

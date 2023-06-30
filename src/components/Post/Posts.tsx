@@ -68,16 +68,17 @@ const Posts = () => {
     results.map((item: any) => {
       var post: post = {
         id: item.id,
-        username: item.username,
+        username: item.table_name.name,
         user_id: item.user_id,
-        user_image: item.user_image,
+        user_image: item.table_name.user_image,
         time: new Date(item.inserted_at),
         community_name: "Community Name",
         content: item.content,
         likes: item.likes,
         dislikes: item.dislikes,
         comment_id: item.comment_id,
-        comments: item.comments,
+        comments: item.comment,
+        likes_dislikes: item.likes_dislikes,
       };
       setPosts((prevState) => ({
         items: [...prevState.items, post],
@@ -87,6 +88,9 @@ const Posts = () => {
   useEffect(() => {
     getPosts();
   }, []);
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
   return (
     <div className="mx-14 py-10 w-2/3">
       <CreatePost setPosts={setPosts} />

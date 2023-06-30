@@ -12,38 +12,24 @@ interface Comments {
 const Comments = ({ item, post_id, comment_id }: Props) => {
   const [comments, setComments] = useState<Comments>({ item: item });
   const [newComment, setNewComment] = useState<string>("");
-  const addCommentToPost = async (result: any) => {
-    let comments = comment_id;
-    comments.unshift(parseInt(result));
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      comment_id: comments,
-      post_id: post_id,
-    });
-
-    var requestOptions: RequestInit = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:5000/commenttopost", requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
-      .catch((error) => console.log("error", error));
-  };
   const addComment = async () => {
     console.log(newComment);
     var commenttemp: comment = {
       id: 0,
-      username: "Oliver",
       comment_content: newComment,
       upvotes: 0,
       downvotes: 0,
-      user_image: "",
+      table_name: {
+        name: "One",
+        user_image: "Two",
+      },
+      upvotes_downvotes: [
+        {
+          comment_id: 0,
+          value: 0,
+          id: 0,
+        },
+      ],
     };
 
     var myHeaders = new Headers();
@@ -52,6 +38,7 @@ const Comments = ({ item, post_id, comment_id }: Props) => {
     var raw = JSON.stringify({
       content: newComment,
       user_id: 1,
+      post_id: post_id,
     });
 
     var requestOptions: RequestInit = {
@@ -65,16 +52,14 @@ const Comments = ({ item, post_id, comment_id }: Props) => {
       .then((response) => response.text())
       .then((result) => {
         commenttemp.id = parseInt(result);
-        addCommentToPost(result);
+        setComments((prevState) => ({
+          item: [commenttemp, ...prevState.item],
+        }));
       })
       .catch((error) => console.log("error", error));
-    setComments((prevState) => ({ item: [commenttemp, ...prevState.item] }));
+
     setNewComment("");
   };
-
-  useEffect(() => {
-    console.log(comments);
-  }, [comments]);
 
   return (
     <div>
@@ -99,12 +84,12 @@ const Comments = ({ item, post_id, comment_id }: Props) => {
           {comments.item.map((element) => (
             <div className="mt-2 items-center flex gap-4 w-full text-sm">
               <div className="h-6 w-6 rounded-full overflow-hidden bg-violet-100">
-                <img src={element.user_image} />
+                <img src={element.table_name.user_image} />
               </div>
               <div className="w-full">
                 <div className="flex gap-2">
                   <div className="font-semibold text-white">
-                    {element.username}:
+                    {element.table_name.name}:
                   </div>
                   <div>{element.comment_content}</div>
                 </div>

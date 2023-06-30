@@ -1,9 +1,18 @@
 interface comment {
   id: number;
-  username: string;
   comment_content: string;
   upvotes: number;
   downvotes: number;
-  user_image: string;
+  table_name: {
+    name: string;
+    user_image: string;
+  };
+  upvotes_downvotes: [
+    {
+      comment_id: number;
+      value: number;
+      id: number;
+    }
+  ];
 }
 export default comment;

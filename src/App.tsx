@@ -8,6 +8,7 @@ import Drawer from "./components/drawer";
 import Main from "./components/Main";
 import EditProfile from "./components/EditProfile";
 import Community from "./components/Community/Community";
+import CommunityExplore from "./components/Community/CommunityExplore";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/home" element={<Main />} />
             <Route path="/editprofile" element={<EditProfile />} />
             <Route path="/community" element={<Community />} />
+            <Route path="/communityexplore" element={<CommunityExplore />} />
           </Routes>
         </div>
       </div>

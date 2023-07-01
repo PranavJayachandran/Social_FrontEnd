@@ -45,23 +45,23 @@ const Image3: React.FC = () => (
   />
 );
 
-var communitys: Array<community> = [
-  {
-    name: "Community One",
-    members: 123,
-    image: Image1,
-  },
-  {
-    name: "Community Two",
-    members: 123,
-    image: Image2,
-  },
-  {
-    name: "Community Three",
-    members: 123,
-    image: Image3,
-  },
-];
+// var communitys: Array<community> = [
+//   {
+//     name: "Community One",
+//     members: 123,
+//     image: Image1,
+//   },
+//   {
+//     name: "Community Two",
+//     members: 123,
+//     image: Image2,
+//   },
+//   {
+//     name: "Community Three",
+//     members: 123,
+//     image: Image3,
+//   },
+// ];
 var upcomingEvents: Array<event> = [
   {
     name: "Event One",
@@ -105,9 +105,10 @@ const Drawer = () => {
       <div className="pb-8 border-[#8d8e92] border-b">
         <div className="text-[#cacbcf] text-lg mb-2">My community</div>
         <div className="flex flex-col">
-          {communitys.map((item) => (
+          {/* {communitys.map((item) => (
             <Community_Drawer item={item} />
-          ))}
+          ))} */}
+          HAve to implement user communities
         </div>
       </div>
       <div>

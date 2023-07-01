@@ -1,6 +1,6 @@
 import post from "./post";
 
 interface PostSate {
-  items: post[];
+  items: Array<post>;
 }
 export default PostSate;

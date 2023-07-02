@@ -1,27 +1,62 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import community from "../../interfaces/community";
 import { Link } from "react-router-dom";
+import communityState from "../../interfaces/communityState";
 
 interface Props {
   item: community;
+  removeCommunity: (newValue: number) => void;
 }
 
-const Community_Card = ({ item }: Props) => {
+const Community_Card = ({ item, removeCommunity }: Props) => {
+  const [community, setCommunity] = useState<community>(item);
+  const joinCommunity = () => {
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
+
+    // var raw = JSON.stringify({
+    //   user_id: 1,
+    //   community_id: community.id,
+    // });
+
+    // var requestOptions: RequestInit = {
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: "follow",
+    // };
+
+    // fetch("http://localhost:5000/communitytouser", requestOptions)
+    //   .then((response) => response.json())
+    //   .then((result) => {})
+    //   .catch((error) => console.log("error", error));
+    setCommunity((prevState) => ({
+      ...prevState,
+      members: community.members + 1,
+    }));
+    removeCommunity(community.id);
+  };
+  // useEffect(() => {
+  //   console.log(community);
+  // }, [item]);
   return (
     <div className="flex flex-col w-1/4 p-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
       <div className="h-48 w-48 flex justify-center items-center">
         <div className="h-60 w-60 flex justify-center items-center overflow-hidden">
-          <img src={item.cover_image} />
+          <img src={community.cover_image} />
         </div>
       </div>
       <div>
-        <div className="text-xl">{item.name}</div>
-        <div className="text-xs">{item.members} Members</div>
+        <div className="text-xl">{community.name}</div>
+        <div className="text-xs">{community.members} Members</div>
         <div className="mt-6 flex justify-center gap-3">
-          <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
+          <button
+            className="bg-blue-600 py-2 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer text-white"
+            onClick={joinCommunity}
+          >
             Join Now
           </button>
-          <Link to={"/communityexplore"} state={item}>
+          <Link to={"/communityexplore"} state={community}>
             <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
               Explore
             </button>

@@ -62,7 +62,6 @@ const Post = ({ item }: Props) => {
   };
 
   const like = () => {
-    console.log("Called");
     if (liked_disliked_by_user == 1) {
       {
         setliked_disliked_by_user(liked_disliked_by_user - 1);

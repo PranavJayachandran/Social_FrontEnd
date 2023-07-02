@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import option from "../interfaces/drawer_option";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
@@ -8,6 +8,7 @@ import community from "../interfaces/community";
 import Community_Drawer from "./Community_Drawer";
 import event from "../interfaces/event";
 import UpComingEvents from "./UpComingEvents";
+import getUserData from "../utils/basicsetup";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
@@ -84,6 +85,14 @@ var upcomingEvents: Array<event> = [
 ];
 
 const Drawer = () => {
+  const [user_data, setUserData] = useState<any>();
+
+  useEffect(() => {
+    const setUp = async () => {
+      setUserData(await getUserData(1));
+    };
+    setUp();
+  }, []);
   return (
     <div className="pt-[460px] h-screen hide_scroll overflow-scroll bg-[#1e1f23] px-6 pb-20 text-[#8d8e92] w-3/12 flex flex-col justify-center gap-6">
       <div className="flex mt-12 gap-4 pl-3 items-center">
@@ -98,8 +107,8 @@ const Drawer = () => {
         />
       </div>
       <div className=" flex flex-col pb-8 border-[#8d8e92] border-b">
-        {options.map((item) => (
-          <Drawer_options item={item} />
+        {options.map((item, index) => (
+          <Drawer_options item={item} key={index} state={user_data} />
         ))}
       </div>
       <div className="pb-8 border-[#8d8e92] border-b">

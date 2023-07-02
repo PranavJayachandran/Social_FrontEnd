@@ -88,15 +88,15 @@ const Posts = () => {
   useEffect(() => {
     getPosts();
   }, []);
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+  // useEffect(() => {
+  //   console.log(posts);
+  // }, [posts]);
   return (
     <div className="mx-14 py-10 w-2/3">
       <CreatePost setPosts={setPosts} />
       <div className="mt-8 flex flex-col gap-8">
         {posts.items.map((post) => (
-          <Post item={post} />
+          <Post item={post} key={post.id} />
         ))}
       </div>
     </div>

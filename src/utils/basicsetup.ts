@@ -9,7 +9,6 @@ async function getUserData(id: number) {
     .then((response) => response.json())
     .then((result) => {
       user_data = result;
-      console.log("User", result);
     })
     .catch((error) => console.log("error", error));
   return user_data;

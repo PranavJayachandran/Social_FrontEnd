@@ -1,6 +1,6 @@
 import community from "./community";
 
 interface communityState {
-  item: Array<community>;
+  items: Array<community>;
 }
 export default communityState;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import Home from "./pages/Home";
@@ -9,21 +9,38 @@ import Main from "./components/Main";
 import EditProfile from "./components/EditProfile";
 import Community from "./components/Community/Community";
 import CommunityExplore from "./components/Community/CommunityExplore";
+import { UserDataContext } from "./context";
+import getUserData from "./utils/basicsetup";
 
 function App() {
+  const [user_data, setUserData] = useState<any>([]);
+
+  useEffect(() => {
+    const setUp = async () => {
+      setUserData(await getUserData(1));
+    };
+    setUp();
+  }, []);
   return (
     <div>
-      <div className="flex">
-        <Drawer />
-        <div className="w-9/12">
-          <Routes>
-            <Route path="/home" element={<Main />} />
-            <Route path="/editprofile" element={<EditProfile />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/communityexplore" element={<CommunityExplore />} />
-          </Routes>
+      <UserDataContext.Provider
+        value={{
+          user_data,
+          setUserData,
+        }}
+      >
+        <div className="flex">
+          <Drawer />
+          <div className="w-9/12">
+            <Routes>
+              <Route path="/home" element={<Main />} />
+              <Route path="/editprofile" element={<EditProfile />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/communityexplore" element={<CommunityExplore />} />
+            </Routes>
+          </div>
         </div>
-      </div>
+      </UserDataContext.Provider>
     </div>
   );
 }

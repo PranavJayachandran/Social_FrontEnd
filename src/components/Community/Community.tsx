@@ -1,16 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NavBar from "./NavBar";
 import community from "../../interfaces/community";
 import Community_Card from "./Community_Card";
 import communityState from "../../interfaces/communityState";
 import { useLocation } from "react-router-dom";
+import { join } from "path";
+import { UserDataContext } from "../../context";
 
 const Community = () => {
-  const location = useLocation();
-  const data = location.state;
-  console.log(data);
-  const [communities, setCommunities] = useState<communityState>();
+  const { user_data, setUserData } = useContext(UserDataContext);
+  const [communities, setCommunities] = useState<communityState>({ items: [] });
+
+  const addNewCommunities = (result: any) => {
+    setCommunities({ items: [] });
+    let joinedcommunities: any = [];
+    if (user_data && user_data.community_to_user)
+      user_data.community_to_user.map((item: any) => {
+        joinedcommunities.push(item.community_id);
+      });
+    if (result)
+      result.map((item: any) => {
+        var id = item.id;
+        if (joinedcommunities.indexOf(id) == -1) {
+          setCommunities((prevState) => ({
+            items: [...prevState.items, item],
+          }));
+        }
+      });
+  };
   const getCommunities = () => {
+    console.log("CAlled");
     var requestOptions: RequestInit = {
       method: "GET",
       redirect: "follow",
@@ -18,23 +37,20 @@ const Community = () => {
 
     fetch("http://localhost:5000/communities", requestOptions)
       .then((response) => response.json())
-      .then((result) => setCommunities({ item: result }))
+      .then((result) => addNewCommunities(result))
       .catch((error) => console.log("error", error));
   };
   useEffect(() => {
-    getCommunities();
-  }, []);
-  useEffect(() => {
-    console.log(data);
-  }, [communities]);
+    if (user_data) getCommunities();
+  }, [user_data]);
 
   const removeCommunity = (id: number) => {
-    setCommunities((prevState) => {
+    setCommunities((prevState: any) => {
       if (!prevState) {
         return prevState;
       }
-      let filteredItems = prevState.item;
-      filteredItems = prevState.item.filter((item) => {
+      let filteredItems = [];
+      filteredItems = prevState.items.filter((item: any) => {
         if (item.id !== id) return item;
         else console.log("removed", item.name);
       });
@@ -46,13 +62,17 @@ const Community = () => {
       <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
         <NavBar />
         <div className="py-10 hide_scroll overflow-scroll gap-4 justify-center  flex flex-wrap  h-[491px]">
-          {communities?.item.map((item: community) => (
-            <Community_Card
-              item={item}
-              removeCommunity={removeCommunity}
-              key={item.id}
-            />
-          ))}
+          {communities && communities.items ? (
+            communities.items.map((item: community, index) => (
+              <Community_Card
+                item={item}
+                removeCommunity={removeCommunity}
+                key={index}
+              />
+            ))
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

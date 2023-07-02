@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import community from "../../interfaces/community";
 import { Link } from "react-router-dom";
 import communityState from "../../interfaces/communityState";
+import { UserDataContext } from "../../context";
 
 interface Props {
   item: community;
@@ -9,36 +10,42 @@ interface Props {
 }
 
 const Community_Card = ({ item, removeCommunity }: Props) => {
+  const { user_data, setUserData } = useContext(UserDataContext);
   const [community, setCommunity] = useState<community>(item);
   const joinCommunity = () => {
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    // var raw = JSON.stringify({
-    //   user_id: 1,
-    //   community_id: community.id,
-    // });
+    var raw = JSON.stringify({
+      user_id: 1,
+      community_id: community.id,
+    });
 
-    // var requestOptions: RequestInit = {
-    //   method: "POST",
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: "follow",
-    // };
+    var requestOptions: RequestInit = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
 
-    // fetch("http://localhost:5000/communitytouser", requestOptions)
-    //   .then((response) => response.json())
-    //   .then((result) => {})
-    //   .catch((error) => console.log("error", error));
+    fetch("http://localhost:5000/communitytouser", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {})
+      .catch((error) => console.log("error", error));
     setCommunity((prevState) => ({
       ...prevState,
       members: community.members + 1,
     }));
+    if (setUserData != undefined)
+      setUserData((prevState: any) => ({
+        ...prevState,
+        community_to_user: [
+          ...prevState.community_to_user,
+          { community_id: community.id },
+        ],
+      }));
     removeCommunity(community.id);
   };
-  // useEffect(() => {
-  //   console.log(community);
-  // }, [item]);
   return (
     <div className="flex flex-col w-1/4 p-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
       <div className="h-48 w-48 flex justify-center items-center">

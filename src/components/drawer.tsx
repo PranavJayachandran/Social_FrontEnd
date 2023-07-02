@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import option from "../interfaces/drawer_option";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
@@ -9,6 +9,7 @@ import Community_Drawer from "./Community_Drawer";
 import event from "../interfaces/event";
 import UpComingEvents from "./UpComingEvents";
 import getUserData from "../utils/basicsetup";
+import { UserDataContext } from "../context";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
@@ -85,13 +86,9 @@ var upcomingEvents: Array<event> = [
 ];
 
 const Drawer = () => {
-  const [user_data, setUserData] = useState<any>();
-
+  const { user_data, setUserData } = useContext(UserDataContext);
   useEffect(() => {
-    const setUp = async () => {
-      setUserData(await getUserData(1));
-    };
-    setUp();
+    console.log("Got hte userData", user_data);
   }, []);
   return (
     <div className="pt-[460px] h-screen hide_scroll overflow-scroll bg-[#1e1f23] px-6 pb-20 text-[#8d8e92] w-3/12 flex flex-col justify-center gap-6">

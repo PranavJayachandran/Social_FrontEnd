@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PostSate from "../../interfaces/postState";
 import post from "../../interfaces/post";
-import CreatePost from "../CreatePost";
+import CreatePost from "./CreatePost";
 import Post from "./Post";
 
 // var posts: Array<post> = [
@@ -59,7 +59,7 @@ const Posts = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/posts", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/posts", requestOptions)
       .then((response) => response.json())
       .then((result) => MapToPosts(result))
       .catch((error) => console.log("error", error));

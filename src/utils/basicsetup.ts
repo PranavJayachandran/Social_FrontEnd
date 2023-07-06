@@ -5,7 +5,7 @@ async function getUserData(id: number) {
     redirect: "follow",
   };
 
-  await fetch(`http://localhost:5000/userData/${id}`, requestOptions)
+  await fetch(`https://8mnzrw-5000.csb.app/userData/${id}`, requestOptions)
     .then((response) => response.json())
     .then((result) => {
       user_data = result;

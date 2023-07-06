@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useContext } from "react";
-import option from "../interfaces/drawer_option";
+import option from "../../interfaces/drawer_option";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { ImFeed } from "react-icons/im";
 import Drawer_options from "./Drawer_options";
-import community from "../interfaces/community";
+import community from "../../interfaces/community";
 import Community_Drawer from "./Community_Drawer";
-import event from "../interfaces/event";
-import UpComingEvents from "./UpComingEvents";
-import getUserData from "../utils/basicsetup";
-import { UserDataContext } from "../context";
+import event from "../../interfaces/event";
+import UpComingEvents from "../UpComingEvents";
+import getUserData from "../../utils/basicsetup";
+import { UserDataContext } from "../../context";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import option from "../interfaces/drawer_option";
+import option from "../../interfaces/drawer_option";
 import { Link } from "react-router-dom";
 
 interface Props {

@@ -1,6 +1,6 @@
 import React from "react";
-import Drawer from "../components/drawer";
 import Main from "../components/Main";
+import Drawer from "../components/Drawer/drawer";
 
 const Home = () => {
   return (

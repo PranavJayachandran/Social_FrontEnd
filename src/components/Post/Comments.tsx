@@ -50,7 +50,7 @@ const Comments = ({ item, post_id, comment_id, user_id }: Props) => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/comment", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/comment", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         commenttemp.id = parseInt(result);

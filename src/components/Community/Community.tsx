@@ -35,7 +35,7 @@ const Community = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/communities", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/communities", requestOptions)
       .then((response) => response.json())
       .then((result) => addNewCommunities(result))
       .catch((error) => console.log("error", error));
@@ -67,7 +67,7 @@ const Community = () => {
               <Community_Card
                 item={item}
                 removeCommunity={removeCommunity}
-                key={index}
+                key={item.id}
               />
             ))
           ) : (

@@ -9,6 +9,7 @@ const CommunityExplore = () => {
   const data = location.state;
   const [community_data, setCommunity_data] = useState<community>(data);
   const { user_data, setUserData } = useContext(UserDataContext);
+  const [joined, setJoined] = useState<number>(0);
 
   const joinCommunity = () => {
     var myHeaders = new Headers();
@@ -26,7 +27,7 @@ const CommunityExplore = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/communitytouser", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/communitytouser", requestOptions)
       .then((response) => response.json())
       .then((result) => {})
       .catch((error) => console.log("error", error));
@@ -43,7 +44,47 @@ const CommunityExplore = () => {
       ...prevState,
       members: prevState.members + 1,
     }));
+    setJoined(1);
   };
+  const LeaveCommunity = () => {
+    console.log("WAs here");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      user_id: 1,
+      community_id: community_data.id,
+    });
+    var requestOptions: RequestInit = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("https://8mnzrw-5000.csb.app/communitytouser", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+
+    if (setUserData != undefined) {
+      setUserData((prevState: any) => {
+        const updatedName = prevState.community_to_user.filter(
+          (item: any) => item.community_id !== community_data.id
+        );
+        return { ...prevState, community_to_user: updatedName };
+      });
+    }
+    setJoined(0);
+    setCommunity_data((prevState) => ({
+      ...prevState,
+      members: prevState.members - 1,
+    }));
+  };
+
+  useEffect(() => {
+    console.log("CECE", user_data);
+  }, [user_data]);
 
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
@@ -55,12 +96,21 @@ const CommunityExplore = () => {
             <div className="text-[#cacbcf] text-sm">
               {community_data.members} Members
             </div>
-            <div
-              className="bg-blue-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
-              onClick={joinCommunity}
-            >
-              Join Now
-            </div>
+            {joined === 0 ? (
+              <div
+                className="bg-blue-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
+                onClick={joinCommunity}
+              >
+                Join Now
+              </div>
+            ) : (
+              <div
+                className="bg-blue-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
+                onClick={LeaveCommunity}
+              >
+                Leave
+              </div>
+            )}
           </div>
         </div>
         <div className="h-[200px] w-full ">

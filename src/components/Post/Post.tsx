@@ -31,7 +31,7 @@ const Post = ({ item }: Props) => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/likesdislikes", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/likesdislikes", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -55,7 +55,7 @@ const Post = ({ item }: Props) => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/likesdislikes", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/likesdislikes", requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));

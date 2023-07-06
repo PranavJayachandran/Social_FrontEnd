@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Drawer from "./components/drawer";
+import Drawer from "./components/Drawer/drawer";
 import Main from "./components/Main";
 import EditProfile from "./components/EditProfile";
 import Community from "./components/Community/Community";

@@ -28,7 +28,7 @@ const Community_Card = ({ item, removeCommunity }: Props) => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/communitytouser", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/communitytouser", requestOptions)
       .then((response) => response.json())
       .then((result) => {})
       .catch((error) => console.log("error", error));

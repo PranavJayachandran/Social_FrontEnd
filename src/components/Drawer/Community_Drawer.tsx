@@ -1,5 +1,5 @@
 import React from "react";
-import community from "../interfaces/community";
+import community from "../../interfaces/community";
 
 interface Props {
   item: community;

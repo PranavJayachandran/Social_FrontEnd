@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PostSate from "../interfaces/postState";
-import post from "../interfaces/post";
+import PostSate from "../../interfaces/postState";
+import post from "../../interfaces/post";
 
 interface Props {
   setPosts: React.Dispatch<React.SetStateAction<PostSate>>;
@@ -46,7 +46,7 @@ const CreatePost = ({ setPosts }: Props) => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/post", requestOptions)
+    fetch("https://8mnzrw-5000.csb.app/post", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         post.id = parseInt(result);

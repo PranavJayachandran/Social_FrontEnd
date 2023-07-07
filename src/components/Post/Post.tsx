@@ -31,7 +31,7 @@ const Post = ({ item }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/likesdislikes", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/likesdislikes`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -55,7 +55,7 @@ const Post = ({ item }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/likesdislikes", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/likesdislikes`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -115,7 +115,6 @@ const Post = ({ item }: Props) => {
     let exists = item.likes_dislikes.find((obj) => obj.user_id == 1);
     if (exists) {
       setliked_disliked_by_user(exists.value);
-      console.log(exists.value);
     }
   }, [item]);
   return (

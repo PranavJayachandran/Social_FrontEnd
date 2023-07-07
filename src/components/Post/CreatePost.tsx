@@ -46,7 +46,7 @@ const CreatePost = ({ setPosts }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/post", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/post`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
         post.id = parseInt(result);

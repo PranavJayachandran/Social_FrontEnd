@@ -6,10 +6,10 @@ import { UserDataContext } from "../../context";
 
 const CommunityExplore = () => {
   const location = useLocation();
-  const data = location.state;
+  const { data, mode } = location.state;
   const [community_data, setCommunity_data] = useState<community>(data);
   const { user_data, setUserData } = useContext(UserDataContext);
-  const [joined, setJoined] = useState<number>(0);
+  const [joined, setJoined] = useState<number>(mode);
 
   const joinCommunity = () => {
     var myHeaders = new Headers();
@@ -27,7 +27,7 @@ const CommunityExplore = () => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/communitytouser", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/communitytouser`, requestOptions)
       .then((response) => response.json())
       .then((result) => {})
       .catch((error) => console.log("error", error));
@@ -37,7 +37,7 @@ const CommunityExplore = () => {
         ...prevState,
         community_to_user: [
           ...prevState.community_to_user,
-          { community_id: community_data.id },
+          { community_id: community_data.id, community: community_data },
         ],
       }));
     setCommunity_data((prevState) => ({
@@ -47,7 +47,6 @@ const CommunityExplore = () => {
     setJoined(1);
   };
   const LeaveCommunity = () => {
-    console.log("WAs here");
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
@@ -62,7 +61,7 @@ const CommunityExplore = () => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/communitytouser", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/communitytouser`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -81,10 +80,6 @@ const CommunityExplore = () => {
       members: prevState.members - 1,
     }));
   };
-
-  useEffect(() => {
-    console.log("CECE", user_data);
-  }, [user_data]);
 
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">

@@ -28,7 +28,7 @@ const Comment = ({ item, user_id }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/upvotesdownvotes", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/upvotesdownvotes`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -49,7 +49,7 @@ const Comment = ({ item, user_id }: Props) => {
       body: raw,
       redirect: "follow",
     };
-    fetch("https://8mnzrw-5000.csb.app/upvotesdownvotes", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/upvotesdownvotes`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));

@@ -8,9 +8,6 @@ interface Props {
 }
 
 const Drawer_options = ({ item, state }: Props) => {
-  useEffect(() => {
-    console.log(state);
-  }, [item, state]);
   return (
     <Link to={item.name}>
       <div className="rounded-xl pl-4 flex items-center h-14 gap-4 text-md cursor-pointer transition hover:bg-[#26272e] hover:text-[#3383f4]">

@@ -29,13 +29,12 @@ const Community = () => {
       });
   };
   const getCommunities = () => {
-    console.log("CAlled");
     var requestOptions: RequestInit = {
       method: "GET",
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/communities", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/communities`, requestOptions)
       .then((response) => response.json())
       .then((result) => addNewCommunities(result))
       .catch((error) => console.log("error", error));
@@ -52,7 +51,6 @@ const Community = () => {
       let filteredItems = [];
       filteredItems = prevState.items.filter((item: any) => {
         if (item.id !== id) return item;
-        else console.log("removed", item.name);
       });
       return { item: filteredItems };
     });

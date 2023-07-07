@@ -59,7 +59,7 @@ const Posts = () => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/posts", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/posts`, requestOptions)
       .then((response) => response.json())
       .then((result) => MapToPosts(result))
       .catch((error) => console.log("error", error));

@@ -87,42 +87,49 @@ var upcomingEvents: Array<event> = [
 
 const Drawer = () => {
   const { user_data, setUserData } = useContext(UserDataContext);
+
   useEffect(() => {
     console.log("Got hte userData", user_data);
   }, []);
   return (
-    <div className="pt-[460px] h-screen hide_scroll overflow-scroll bg-[#1e1f23] px-6 pb-20 text-[#8d8e92] w-3/12 flex flex-col justify-center gap-6">
-      <div className="flex mt-12 gap-4 pl-3 items-center">
-        <div className="h-14 w-14 bg-blue-100 rounded-full"></div>
-        <div className="text-xl">Company name</div>
-      </div>
-      <div className="text-sm px-4 gap-2 mx-6 py-3 bg-[#26272e] border border-[#8d8e92] flex rounded-lg justify-center items-center">
-        <AiOutlineSearch className="h-4 w-4 mt-1" />
-        <input
-          className="w-full bg-inherit"
-          placeholder="Explore the CompanyName"
-        />
-      </div>
-      <div className=" flex flex-col pb-8 border-[#8d8e92] border-b">
-        {options.map((item, index) => (
-          <Drawer_options item={item} key={index} state={user_data} />
-        ))}
-      </div>
-      <div className="pb-8 border-[#8d8e92] border-b">
-        <div className="text-[#cacbcf] text-lg mb-2">My community</div>
-        <div className="flex flex-col">
-          {/* {communitys.map((item) => (
-            <Community_Drawer item={item} />
-          ))} */}
-          HAve to implement user communities
+    <div className=" h-screen hide_scroll overflow-scroll w-3/12 ">
+      <div className=" bg-[#1e1f23] px-6 pb-20 text-[#8d8e92]  flex flex-col justify-center gap-6">
+        <div className="flex mt-12 gap-4 pl-3 items-center">
+          <div className="h-14 w-14 bg-blue-100 rounded-full"></div>
+          <div className="text-xl">Company name</div>
         </div>
-      </div>
-      <div>
-        <div className="text-[#cacbcf] text-lg mb-2">UpComing Events</div>
-        <div className="flex flex-col">
-          {upcomingEvents.map((item) => (
-            <UpComingEvents item={item} />
+        <div className="text-sm px-4 gap-2 mx-6 py-3 bg-[#26272e] border border-[#8d8e92] flex rounded-lg justify-center items-center">
+          <AiOutlineSearch className="h-4 w-4 mt-1" />
+          <input
+            className="w-full bg-inherit"
+            placeholder="Explore the CompanyName"
+          />
+        </div>
+        <div className=" flex flex-col pb-8 border-[#8d8e92] border-b">
+          {options.map((item, index) => (
+            <Drawer_options item={item} key={index} state={user_data} />
           ))}
+        </div>
+        <div className="pb-8 border-[#8d8e92] border-b">
+          <div className="text-[#cacbcf] text-lg mb-2">My community</div>
+          <div className="flex flex-col">
+            {user_data != undefined &&
+            user_data.community_to_user !== undefined ? (
+              user_data.community_to_user.map((item: any) => (
+                <Community_Drawer item={item.community} />
+              ))
+            ) : (
+              <></>
+            )}
+          </div>
+        </div>
+        <div>
+          <div className="text-[#cacbcf] text-lg mb-2">UpComing Events</div>
+          <div className="flex flex-col">
+            {upcomingEvents.map((item) => (
+              <UpComingEvents item={item} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

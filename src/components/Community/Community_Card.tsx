@@ -28,7 +28,7 @@ const Community_Card = ({ item, removeCommunity }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://8mnzrw-5000.csb.app/communitytouser", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/communitytouser`, requestOptions)
       .then((response) => response.json())
       .then((result) => {})
       .catch((error) => console.log("error", error));
@@ -41,7 +41,7 @@ const Community_Card = ({ item, removeCommunity }: Props) => {
         ...prevState,
         community_to_user: [
           ...prevState.community_to_user,
-          { community_id: community.id },
+          { community_id: community.id, community: community },
         ],
       }));
     removeCommunity(community.id);
@@ -63,7 +63,10 @@ const Community_Card = ({ item, removeCommunity }: Props) => {
           >
             Join Now
           </button>
-          <Link to={"/communityexplore"} state={community}>
+          <Link
+            to={"/communityexplore"}
+            state={{ community: community, mode: 0 }}
+          >
             <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
               Explore
             </button>

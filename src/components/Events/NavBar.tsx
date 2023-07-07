@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { AiFillHome, AiFillMessage } from "react-icons/ai";
+import { AiFillMessage } from "react-icons/ai";
 import { MdNotifications } from "react-icons/md";
-import { CgCommunity } from "react-icons/cg";
+import { BsFillCalendarEventFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import community from "../../interfaces/community";
 import { UserDataContext } from "../../context";
 
 const NavBar = () => {
@@ -11,8 +10,8 @@ const NavBar = () => {
   return (
     <div className=" py-4 px-10 text-white bg-[#1e1f23] flex w-full justify-between">
       <div className="flex justify-center items-center gap-2">
-        <CgCommunity className="h-6 w-6" />
-        <div className="text-lg">Community</div>
+        <BsFillCalendarEventFill className="h-6 w-6" />
+        <div className="text-lg">Event</div>
       </div>
       <div className="flex gap-4 justify-center items-center">
         <AiFillMessage className="h-6 w-6" />

@@ -11,6 +11,7 @@ import Community from "./components/Community/Community";
 import CommunityExplore from "./components/Community/CommunityExplore";
 import { UserDataContext } from "./context";
 import getUserData from "./utils/basicsetup";
+import Event from "./components/Events/Event";
 
 function App() {
   const [user_data, setUserData] = useState<any>([]);
@@ -37,6 +38,7 @@ function App() {
               <Route path="/editprofile" element={<EditProfile />} />
               <Route path="/community" element={<Community />} />
               <Route path="/communityexplore" element={<CommunityExplore />} />
+              <Route path="/event" element={<Event />} />
             </Routes>
           </div>
         </div>

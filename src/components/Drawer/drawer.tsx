@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import option from "../../interfaces/drawer_option";
 import { AiFillHome, AiOutlineSearch } from "react-icons/ai";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { ImFeed } from "react-icons/im";
+import { BsFillPeopleFill, BsCalendar3Event } from "react-icons/bs";
 import Drawer_options from "./Drawer_options";
 import community from "../../interfaces/community";
 import Community_Drawer from "./Community_Drawer";
@@ -13,7 +12,7 @@ import { UserDataContext } from "../../context";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
-const ImFeedComponent: React.FC = () => <ImFeed />;
+const BsCalendar3EventComponent: React.FC = () => <BsCalendar3Event />;
 var options: Array<option> = [
   {
     name: "Home",
@@ -24,8 +23,8 @@ var options: Array<option> = [
     icon: BsFillPeopleFillComponent,
   },
   {
-    name: "News Feed",
-    icon: ImFeedComponent,
+    name: "Events",
+    icon: BsCalendar3EventComponent,
   },
 ];
 const Image1: React.FC = () => (
@@ -64,33 +63,13 @@ const Image3: React.FC = () => (
 //     image: Image3,
 //   },
 // ];
-var upcomingEvents: Array<event> = [
-  {
-    name: "Event One",
-    interested: 10001,
-    going: 2000,
-    date: new Date("2019-01-16"),
-  },
-  {
-    name: "Event Two",
-    interested: 10002,
-    going: 2002,
-    date: new Date("2019-01-16"),
-  },
-  {
-    name: "Event Three",
-    interested: 10003,
-    going: 2003,
-    date: new Date("2019-01-16"),
-  },
-];
 
 const Drawer = () => {
   const { user_data, setUserData } = useContext(UserDataContext);
 
   useEffect(() => {
     console.log("Got hte userData", user_data);
-  }, []);
+  }, [user_data]);
   return (
     <div className=" h-screen hide_scroll overflow-scroll w-3/12 ">
       <div className=" bg-[#1e1f23] px-6 pb-20 text-[#8d8e92]  flex flex-col justify-center gap-6">
@@ -126,9 +105,13 @@ const Drawer = () => {
         <div>
           <div className="text-[#cacbcf] text-lg mb-2">UpComing Events</div>
           <div className="flex flex-col">
-            {upcomingEvents.map((item) => (
-              <UpComingEvents item={item} />
-            ))}
+            {user_data != undefined && user_data.event_to_user !== undefined ? (
+              user_data.event_to_user.map((item: any) => (
+                <UpComingEvents item={item} />
+              ))
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </div>

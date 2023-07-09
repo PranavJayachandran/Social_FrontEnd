@@ -4,25 +4,37 @@ import community from "../../interfaces/community";
 import Community_Card from "./Community_Card";
 import communityState from "../../interfaces/communityState";
 import { useLocation } from "react-router-dom";
-import { join } from "path";
+import { Link } from "react-router-dom";
 import { UserDataContext } from "../../context";
 
 const Community = () => {
+  const location = useLocation();
   const { user_data, setUserData } = useContext(UserDataContext);
-  const [communities, setCommunities] = useState<communityState>({ items: [] });
+  const [joinedCommunities, setJoinedCommunities] = useState<communityState>({
+    items: [],
+  });
+  const [unjoinedCommunities, setUnJoinedCommunities] =
+    useState<communityState>({
+      items: [],
+    });
 
   const addNewCommunities = (result: any) => {
-    setCommunities({ items: [] });
-    let joinedcommunities: any = [];
+    setJoinedCommunities({ items: [] });
+    setUnJoinedCommunities({ items: [] });
+    let unjoinedcommunities: any = [];
     if (user_data && user_data.community_to_user)
       user_data.community_to_user.map((item: any) => {
-        joinedcommunities.push(item.community_id);
+        unjoinedcommunities.push(item.community_id);
       });
     if (result)
       result.map((item: any) => {
         var id = item.id;
-        if (joinedcommunities.indexOf(id) == -1) {
-          setCommunities((prevState) => ({
+        if (unjoinedcommunities.indexOf(id) == -1) {
+          setUnJoinedCommunities((prevState) => ({
+            items: [...prevState.items, item],
+          }));
+        } else {
+          setJoinedCommunities((prevState) => ({
             items: [...prevState.items, item],
           }));
         }
@@ -43,35 +55,99 @@ const Community = () => {
     if (user_data) getCommunities();
   }, [user_data]);
 
-  const removeCommunity = (id: number) => {
-    setCommunities((prevState: any) => {
-      if (!prevState) {
-        return prevState;
-      }
-      let filteredItems = [];
-      filteredItems = prevState.items.filter((item: any) => {
-        if (item.id !== id) return item;
+  const removeCommunity = (id: number, mode: number) => {
+    if (mode === 1)
+      setUnJoinedCommunities((prevState: any) => {
+        if (!prevState) {
+          return prevState;
+        }
+        let filteredItems = [];
+        filteredItems = prevState.items.filter((item: any) => {
+          if (item.id !== id) return item;
+        });
+        return { item: filteredItems };
       });
-      return { item: filteredItems };
-    });
+    if (mode === 0)
+      setJoinedCommunities((prevState: any) => {
+        if (!prevState) {
+          return prevState;
+        }
+        let filteredItems = [];
+        filteredItems = prevState.items.filter((item: any) => {
+          if (item.id !== id) return item;
+        });
+        return { item: filteredItems };
+      });
   };
   return (
     <div>
       <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
         <NavBar />
-        <div className="py-10 hide_scroll overflow-scroll gap-4 justify-center  flex flex-wrap  h-[491px]">
-          {communities && communities.items ? (
-            communities.items.map((item: community, index) => (
-              <Community_Card
-                item={item}
-                removeCommunity={removeCommunity}
-                key={item.id}
-              />
-            ))
-          ) : (
-            <></>
-          )}
-        </div>
+
+        {(() => {
+          switch (location.pathname) {
+            case "/communityjoined":
+              return (
+                <div className="h-[497px] hide_scroll overflow-scroll ">
+                  <div className="text-[#8d8e92] flex items-center justify-center gap-2 mt-4 text-center">
+                    <Link to="/communityjoined">
+                      <div className="bg-[#72728c] text-white rounded-lg p-2">
+                        Joined Communities
+                      </div>
+                    </Link>
+                    <Link to="/communityunjoined">
+                      <div>Unjoined Communities</div>
+                    </Link>
+                  </div>
+                  <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
+                    {joinedCommunities && joinedCommunities.items ? (
+                      joinedCommunities.items.map((item: community) => (
+                        <Community_Card
+                          item={item}
+                          removeCommunity={removeCommunity}
+                          key={item.id}
+                          mode={0}
+                        />
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              );
+            case "/communityunjoined":
+              return (
+                <div className="h-[497px] hide_scroll overflow-scroll ">
+                  <div className="text-[#8d8e92] items-center flex justify-center gap-2 mt-4 text-center">
+                    <Link to="/communityjoined">
+                      <div>Joined Communities</div>
+                    </Link>
+                    <Link to="/communityunjoined">
+                      <div className="bg-[#72728c] text-white rounded-lg p-2">
+                        Unjoined Communities
+                      </div>
+                    </Link>
+                  </div>
+                  <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
+                    {unjoinedCommunities && unjoinedCommunities.items ? (
+                      unjoinedCommunities.items.map((item: community) => (
+                        <Community_Card
+                          item={item}
+                          removeCommunity={removeCommunity}
+                          key={item.id}
+                          mode={1}
+                        />
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              );
+            default:
+              return null;
+          }
+        })()}
       </div>
     </div>
   );

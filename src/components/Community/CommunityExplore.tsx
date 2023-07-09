@@ -103,6 +103,11 @@ const CommunityExplore = () => {
     getEventsforCommunity();
   }, []);
 
+  useEffect(() => {
+    setCommunity_data(community);
+    setJoined(mode);
+  }, [community]);
+
   const formatedDate = (timestamp: Date) => {
     const date = new Date(timestamp);
     const year = date.getFullYear();
@@ -157,7 +162,7 @@ const CommunityExplore = () => {
           <div className=" flex text-lg ">
             <div className=" border-b">Upcoming Events</div>
           </div>
-          <div className="mt-2 flex flex-col">
+          <div className="mt-2 gap-2 flex flex-col">
             {events?.map((item) => (
               <div className="flex items-center gap-2">
                 <div>{item.name}</div>

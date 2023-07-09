@@ -9,6 +9,7 @@ import event from "../../interfaces/event";
 import UpComingEvents from "../UpComingEvents";
 import getUserData from "../../utils/basicsetup";
 import { UserDataContext } from "../../context";
+import { Link } from "react-router-dom";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
@@ -17,14 +18,17 @@ var options: Array<option> = [
   {
     name: "Home",
     icon: AiFillHomeComponent,
+    link: "home",
   },
   {
     name: "Community",
     icon: BsFillPeopleFillComponent,
+    link: "communityjoined",
   },
   {
     name: "Events",
     icon: BsCalendar3EventComponent,
+    link: "events",
   },
 ];
 const Image1: React.FC = () => (
@@ -94,13 +98,30 @@ const Drawer = () => {
           <div className="flex flex-col">
             {user_data != undefined &&
             user_data.community_to_user !== undefined ? (
-              user_data.community_to_user.map((item: any) => (
-                <Community_Drawer item={item.community} />
-              ))
+              user_data.community_to_user.map(
+                (item: any, index: any) =>
+                  index < 3 && <Community_Drawer item={item.community} />
+              )
             ) : (
               <></>
             )}
           </div>
+          {user_data != undefined &&
+          user_data.community_to_user !== undefined ? (
+            user_data.community_to_user.length > 3 ? (
+              <div className="mt-2 flex justify-center">
+                <Link to="/communityjoined">
+                  <div className="bg-teal-600 py-1 px-4 text-white rounded-xl">
+                    More
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          )}
         </div>
         <div>
           <div className="text-[#cacbcf] text-lg mb-2">UpComing Events</div>

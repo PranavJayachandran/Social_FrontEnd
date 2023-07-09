@@ -38,7 +38,8 @@ function App() {
             <Routes>
               <Route path="/home" element={<Main />} />
               <Route path="/editprofile" element={<EditProfile />} />
-              <Route path="/community" element={<Community />} />
+              <Route path="/communityjoined" element={<Community />} />
+              <Route path="/communityunjoined" element={<Community />} />
               <Route path="/communityexplore" element={<CommunityExplore />} />
               <Route path="/createevent" element={<CreateEvent />} />
               <Route path="/events" element={<Events />} />

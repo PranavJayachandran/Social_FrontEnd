@@ -52,11 +52,13 @@ const Community = () => {
       .catch((error) => console.log("error", error));
   };
   useEffect(() => {
-    if (user_data) getCommunities();
+    if (user_data) {
+      getCommunities();
+    }
   }, [user_data]);
 
   const removeCommunity = (id: number, mode: number) => {
-    if (mode === 1)
+    if (mode === 1) {
       setUnJoinedCommunities((prevState: any) => {
         if (!prevState) {
           return prevState;
@@ -67,7 +69,8 @@ const Community = () => {
         });
         return { item: filteredItems };
       });
-    if (mode === 0)
+    }
+    if (mode === 0) {
       setJoinedCommunities((prevState: any) => {
         if (!prevState) {
           return prevState;
@@ -78,6 +81,7 @@ const Community = () => {
         });
         return { item: filteredItems };
       });
+    }
   };
   return (
     <div>
@@ -89,16 +93,6 @@ const Community = () => {
             case "/communityjoined":
               return (
                 <div className="h-[497px] hide_scroll overflow-scroll ">
-                  <div className="text-[#8d8e92] flex items-center justify-center gap-2 mt-4 text-center">
-                    <Link to="/communityjoined">
-                      <div className="bg-[#72728c] text-white rounded-lg p-2">
-                        Joined Communities
-                      </div>
-                    </Link>
-                    <Link to="/communityunjoined">
-                      <div>Unjoined Communities</div>
-                    </Link>
-                  </div>
                   <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
                     {joinedCommunities && joinedCommunities.items ? (
                       joinedCommunities.items.map((item: community) => (
@@ -118,16 +112,6 @@ const Community = () => {
             case "/communityunjoined":
               return (
                 <div className="h-[497px] hide_scroll overflow-scroll ">
-                  <div className="text-[#8d8e92] items-center flex justify-center gap-2 mt-4 text-center">
-                    <Link to="/communityjoined">
-                      <div>Joined Communities</div>
-                    </Link>
-                    <Link to="/communityunjoined">
-                      <div className="bg-[#72728c] text-white rounded-lg p-2">
-                        Unjoined Communities
-                      </div>
-                    </Link>
-                  </div>
                   <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
                     {unjoinedCommunities && unjoinedCommunities.items ? (
                       unjoinedCommunities.items.map((item: community) => (

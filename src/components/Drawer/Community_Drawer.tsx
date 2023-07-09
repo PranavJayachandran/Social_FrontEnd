@@ -7,9 +7,6 @@ interface Props {
 }
 
 const Community_Drawer = ({ item }: Props) => {
-  useEffect(() => {
-    console.log("COM", item);
-  }, [item]);
   return (
     <Link to={"/communityexplore"} state={{ community: item, mode: 1 }}>
       <div className="flex rounded-xl gap-4 items-center py-4 px-2  cursor-pointer transition hover:bg-[#26272e]">

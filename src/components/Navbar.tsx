@@ -12,12 +12,14 @@ const Navbar = () => {
         <AiFillHome className="h-6 w-6" />
         <div className="text-lg">Home</div>
       </div>
-      <div className="text-sm flex gap-4 px-2 rounded-lg justify-center items-center bg-[#343440]">
+      {/* <div className="text-sm flex gap-4 px-2 rounded-lg justify-center items-center bg-[#343440]">
         <div className="bg-[#72728c] px-2 rounded-lg py-1">Explore</div>
         <div>Community feed</div>
         <div>Mutual friend</div>
-      </div>
+      </div> */}
       <div className="flex gap-4 justify-center items-center">
+        <AiFillMessage className="h-6 w-6" />
+        <MdNotifications className="h-6 w-6" />
         <div>{user_data.name}</div>
         <Link to="/editprofile">
           <div className="h-10 w-10 rounded-full bg-blue-100 overflow-hidden">

@@ -91,7 +91,7 @@ const CommunityExplore = () => {
     };
 
     fetch(
-      `${process.env.REACT_APP_BACKEND}/eventcommunity/${community_data.id}`,
+      `${process.env.REACT_APP_BACKEND}/eventcommunity/${community.id}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -106,6 +106,8 @@ const CommunityExplore = () => {
   useEffect(() => {
     setCommunity_data(community);
     setJoined(mode);
+    setEvents([]);
+    getEventsforCommunity();
   }, [community]);
 
   const formatedDate = (timestamp: Date) => {

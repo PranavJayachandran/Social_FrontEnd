@@ -48,45 +48,51 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
     removeCommunity(community.id, mode);
   };
   const leaveCommunity = () => {
-    // var myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/json");
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-    // var raw = JSON.stringify({
-    //   user_id: 1,
-    //   community_id: community.id,
-    // });
+    var raw = JSON.stringify({
+      user_id: 1,
+      community_id: community.id,
+    });
+    var requestOptions: RequestInit = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
 
-    // var requestOptions: RequestInit = {
-    //   method: "POST",
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: "follow",
-    // };
-
-    // fetch(`${process.env.REACT_APP_BACKEND}/communitytouser`, requestOptions)
-    //   .then((response) => response.json())
-    //   .then((result) => {})
-    //   .catch((error) => console.log("error", error));
+    fetch(`${process.env.REACT_APP_BACKEND}/communitytouser`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
 
     setCommunity((prevState) => ({
       ...prevState,
       members: community.members - 1,
     }));
 
-    // if (setUserData != undefined) {
-    //   setUserData((prevState: any) => {
-    //     if (!prevState) {
-    //       return prevState;
-    //     }
-    //     let filteredItems = [];
-    //     filteredItems = prevState.community_to_user.filter((item: any) => {
-    //       if (item.id !== community.id) return item;
-    //     });
-    //     return { item: filteredItems };
-    //   });
-    // }
-    // removeCommunity(community.id, mode);
+    if (setUserData != undefined) {
+      setUserData((prevState: any) => {
+        let filteredItems = [];
+        filteredItems = prevState.community_to_user.filter((item: any) => {
+          if (item.community_id !== community.id) {
+            {
+              return item;
+            }
+          }
+        });
+        return {
+          ...prevState,
+          community_to_user: filteredItems,
+        };
+      });
+    }
+    removeCommunity(community.id, mode);
   };
+  // useEffect(() => {
+  //   console.log(user_data);
+  // }, [user_data]);
   return (
     <div className="flex flex-col w-1/4 p-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
       <div className="h-48 w-48 flex justify-center items-center">

@@ -127,13 +127,9 @@ const Comment = ({ item, user_id }: Props) => {
     let exists = item.upvotes_downvotes.find((obj) => obj.user_id == 1);
     if (exists) {
       setupdownbyuser(exists.value);
-      // console.log("her", exists.value);
     }
   }, [item]);
 
-  // useEffect(() => {
-  //   console.log(updownbyuser);
-  // }, [updownbyuser]);
   return (
     <div className="mt-2 items-center flex gap-4 w-full text-sm">
       <div className="h-6 w-6 rounded-full overflow-hidden bg-violet-100">

@@ -15,7 +15,6 @@ const Comments = ({ item, post_id, comment_id, user_id }: Props) => {
   const [comments, setComments] = useState<Comments>({ item: item });
   const [newComment, setNewComment] = useState<string>("");
   const addComment = async () => {
-    // console.log(newComment);
     var commenttemp: comment = {
       id: 0,
       comment_content: newComment,

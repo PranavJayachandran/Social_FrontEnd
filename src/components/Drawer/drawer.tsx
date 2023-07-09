@@ -71,9 +71,6 @@ const Image3: React.FC = () => (
 const Drawer = () => {
   const { user_data, setUserData } = useContext(UserDataContext);
 
-  useEffect(() => {
-    console.log("Got hte userData", user_data);
-  }, [user_data]);
   return (
     <div className=" h-screen hide_scroll overflow-scroll w-3/12 ">
       <div className=" bg-[#1e1f23] px-6 pb-20 text-[#8d8e92]  flex flex-col justify-center gap-6">
@@ -111,7 +108,7 @@ const Drawer = () => {
             user_data.community_to_user.length > 3 ? (
               <div className="mt-2 flex justify-center">
                 <Link to="/communityjoined">
-                  <div className="bg-teal-600 py-1 px-4 text-white rounded-xl">
+                  <div className="bg-green-700 py-1 px-4 text-white rounded-xl hover:bg-white hover:text-green-500 transition">
                     More
                   </div>
                 </Link>
@@ -127,13 +124,29 @@ const Drawer = () => {
           <div className="text-[#cacbcf] text-lg mb-2">UpComing Events</div>
           <div className="flex flex-col">
             {user_data != undefined && user_data.event_to_user !== undefined ? (
-              user_data.event_to_user.map((item: any) => (
-                <UpComingEvents item={item} />
-              ))
+              user_data.event_to_user.map(
+                (item: any, index: any) =>
+                  index < 3 && <UpComingEvents item={item} />
+              )
             ) : (
               <></>
             )}
           </div>
+          {user_data != undefined && user_data.event_to_user !== undefined ? (
+            user_data.event_to_user.length > 3 ? (
+              <div className="mt-2 flex justify-center">
+                <Link to="/events">
+                  <div className="bg-green-700 py-1 px-4 text-white rounded-xl hover:bg-white hover:text-green-500 transition">
+                    More
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

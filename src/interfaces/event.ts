@@ -3,7 +3,9 @@ interface event {
   interested: number;
   going: number;
   date: Date;
-  community: string;
+  community: {
+    name: string;
+  };
   id: number;
   cover_image: string;
   description: string;

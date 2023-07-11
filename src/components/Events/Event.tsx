@@ -44,7 +44,7 @@ const Event = ({ item }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://cjkrw6-5000.csb.app/joinevent", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/joinevent`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -72,7 +72,7 @@ const Event = ({ item }: Props) => {
       redirect: "follow",
     };
 
-    fetch("https://cjkrw6-5000.csb.app/leaveevent", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/leaveevent`, requestOptions)
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log("error", error));
@@ -126,7 +126,7 @@ const Event = ({ item }: Props) => {
           )}
         </div>
         <div className="-mt-2 text-[#cacbcf] text-xs">
-          Conducted by {item.community}
+          Conducted by {item.community.name}
         </div>
         <div className="mt-2 text-white text-xs">
           {formatDescription(item?.description, 100)}

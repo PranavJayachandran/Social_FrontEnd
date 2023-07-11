@@ -78,13 +78,13 @@ const Drawer = () => {
           <div className="h-14 w-14 bg-blue-100 rounded-full"></div>
           <div className="text-xl">Company name</div>
         </div>
-        <div className="text-sm px-4 gap-2 mx-6 py-3 bg-[#26272e] border border-[#8d8e92] flex rounded-lg justify-center items-center">
+        {/* <div className="text-sm px-4 gap-2 mx-6 py-3 bg-[#26272e] border border-[#8d8e92] flex rounded-lg justify-center items-center">
           <AiOutlineSearch className="h-4 w-4 mt-1" />
           <input
             className="w-full bg-inherit"
             placeholder="Explore the CompanyName"
           />
-        </div>
+        </div> */}
         <div className=" flex flex-col pb-8 border-[#8d8e92] border-b">
           {options.map((item, index) => (
             <Drawer_options item={item} key={index} state={user_data} />

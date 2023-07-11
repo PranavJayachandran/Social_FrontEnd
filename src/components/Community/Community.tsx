@@ -13,6 +13,7 @@ const Community = () => {
   const [joinedCommunities, setJoinedCommunities] = useState<communityState>({
     items: [],
   });
+  let p = 0;
   const [unjoinedCommunities, setUnJoinedCommunities] =
     useState<communityState>({
       items: [],
@@ -52,7 +53,8 @@ const Community = () => {
       .catch((error) => console.log("error", error));
   };
   useEffect(() => {
-    if (user_data) {
+    if (user_data && p == 0) {
+      p = 1;
       getCommunities();
     }
   }, [user_data]);

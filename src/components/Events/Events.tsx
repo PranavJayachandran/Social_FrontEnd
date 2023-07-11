@@ -13,15 +13,18 @@ const Events = () => {
       redirect: "follow",
     };
 
-    fetch("https://cjkrw6-5000.csb.app/events", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/events`, requestOptions)
       .then((response) => response.json())
-      .then((result) => setEvents(result))
+      .then((result) => {
+        console.log("EVEMT", result);
+        setEvents(result);
+      })
       .catch((error) => console.log("error", error));
   };
 
   useEffect(() => {
     getEvents();
-  });
+  }, []);
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
       <NavBar />

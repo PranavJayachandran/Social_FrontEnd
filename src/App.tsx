@@ -32,20 +32,31 @@ function App() {
           setUserData,
         }}
       >
-        <div className="flex">
-          <Drawer />
-          <div className="w-9/12">
-            <Routes>
-              <Route path="/home" element={<Main />} />
-              <Route path="/editprofile" element={<EditProfile />} />
-              <Route path="/communityjoined" element={<Community />} />
-              <Route path="/communityunjoined" element={<Community />} />
-              <Route path="/communityexplore" element={<CommunityExplore />} />
-              <Route path="/createevent" element={<CreateEvent />} />
-              <Route path="/events" element={<Events />} />
-            </Routes>
+        <BrowserRouter basename="/auth">
+          <Routes>
+            <Route path="/login" element={<Login />} />\
+            <Route path="/signup" element={<Login />} />
+          </Routes>
+        </BrowserRouter>
+        <BrowserRouter basename="/app">
+          <div className="flex">
+            <Drawer />
+            <div className="w-9/12">
+              <Routes>
+                <Route path="/home" element={<Main />} />
+                <Route path="/editprofile" element={<EditProfile />} />
+                <Route path="/communityjoined" element={<Community />} />
+                <Route path="/communityunjoined" element={<Community />} />
+                <Route
+                  path="/communityexplore"
+                  element={<CommunityExplore />}
+                />
+                <Route path="/createevent" element={<CreateEvent />} />
+                <Route path="/events" element={<Events />} />
+              </Routes>
+            </div>
           </div>
-        </div>
+        </BrowserRouter>
       </UserDataContext.Provider>
     </div>
   );

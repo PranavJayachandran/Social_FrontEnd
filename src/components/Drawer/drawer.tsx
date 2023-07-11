@@ -107,7 +107,7 @@ const Drawer = () => {
           user_data.community_to_user !== undefined ? (
             user_data.community_to_user.length > 3 ? (
               <div className="mt-2 flex justify-center">
-                <Link to="/communityjoined">
+                <Link to="/app/communityjoined">
                   <div className="bg-green-700 py-1 px-4 text-white rounded-xl hover:bg-white hover:text-green-500 transition">
                     More
                   </div>
@@ -135,7 +135,7 @@ const Drawer = () => {
           {user_data != undefined && user_data.event_to_user !== undefined ? (
             user_data.event_to_user.length > 3 ? (
               <div className="mt-2 flex justify-center">
-                <Link to="/events">
+                <Link to="/app/events">
                   <div className="bg-green-700 py-1 px-4 text-white rounded-xl hover:bg-white hover:text-green-500 transition">
                     More
                   </div>

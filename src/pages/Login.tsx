@@ -1,25 +1,42 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
+import LoadingSpinner from "../components/LoadingSpinner";
+
+const supabase = createClient(
+  process.env.REACT_APP_SUPABASEURL!,
+  process.env.REACT_APP_SUPABASEKEY!,
+  { auth: { persistSession: false } }
+);
 
 const Login = () => {
   const { pathname } = useLocation();
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>("pranjpranav@gmail.com");
+  const [password, setPassword] = useState<string>("12345678");
+  const [errormessage, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
+
   const authenticate = async () => {
-    if (pathname == "/signup") {
+    setError("");
+    setIsLoading(true);
+    if (pathname == "/auth/signup") {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
       });
 
       if (error) {
-        console.error("Error logging in:", error.message);
+        {
+          console.error("Error logging in:", error.message);
+          setError(error.message);
+        }
       } else {
-        console.log("Logged in user:", data);
+        setMessage("Verification Mail has been set");
       }
     }
-    if (pathname == "/login") {
+    if (pathname == "/auth/login") {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -27,12 +44,15 @@ const Login = () => {
 
       if (error) {
         console.error("Error logging in:", error.message);
+        setError(error.message);
       } else {
+        navigate("/app/editprofile");
         console.log("Logged in user:", data);
       }
     }
     setEmail("");
     setPassword("");
+    setIsLoading(false);
   };
   return (
     <div>
@@ -42,6 +62,8 @@ const Login = () => {
           <div className="flex flex-col gap-8">
             <div className="text-3xl text-center ">Company Name</div>
             <div className="flex flex-col gap-2 mt-6">
+              <div className="text-red-700 text-sm">{errormessage}</div>
+              <div className="text-slate-200 text-center">{message}</div>
               <input
                 className="bg-black p-4 w-80 text-sm"
                 placeholder="Email"
@@ -57,17 +79,19 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <div className="text-xs text-right text-slate-300">
+              {/* <div className="text-xs text-right text-slate-300">
                 Forgot Password?
-              </div>
+              </div> */}
             </div>
-            <div className="flex justify-center">
+            <div className="flex gap-8 flex-col justify-center">
               <button
                 className="bg-teal-600 px-14 rounded-xl text-slate-300 py-2 cursor-pointer hover:bg-teal-400 hover:text-white transition"
                 onClick={authenticate}
+                disabled={isLoading}
               >
-                {pathname == "/login" ? "Login" : "Sign Up"}
+                {pathname == "/auth/login" ? "Login" : "Sign Up"}
               </button>
+              {isLoading ? <LoadingSpinner /> : <></>}
             </div>
           </div>
         </div>

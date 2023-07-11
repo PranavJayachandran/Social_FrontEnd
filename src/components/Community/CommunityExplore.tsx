@@ -180,7 +180,7 @@ const CommunityExplore = () => {
         </div>
         <div className="flex justify-center mt-10">
           <Link
-            to="/createevent"
+            to="/app/createevent"
             state={{
               community_id: community_data.id,
               community_name: community_data.name,

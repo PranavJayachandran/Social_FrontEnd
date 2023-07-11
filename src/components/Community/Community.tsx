@@ -56,8 +56,13 @@ const Community = () => {
     if (user_data && p == 0) {
       p = 1;
       getCommunities();
+      console.log(user_data);
     }
   }, [user_data]);
+
+  useEffect(() => {
+    console.log(joinedCommunities, unjoinedCommunities);
+  }, [joinedCommunities, unjoinedCommunities]);
 
   const removeCommunity = (id: number, mode: number) => {
     if (mode === 1) {
@@ -92,7 +97,7 @@ const Community = () => {
 
         {(() => {
           switch (location.pathname) {
-            case "/communityjoined":
+            case "/app/communityjoined":
               return (
                 <div className="h-[497px] hide_scroll overflow-scroll ">
                   <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
@@ -111,7 +116,7 @@ const Community = () => {
                   </div>
                 </div>
               );
-            case "/communityunjoined":
+            case "/app/communityunjoined":
               return (
                 <div className="h-[497px] hide_scroll overflow-scroll ">
                   <div className="py-10 gap-4 justify-center  flex flex-wrap  ">

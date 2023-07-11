@@ -14,6 +14,8 @@ import getUserData from "./utils/basicsetup";
 import Event from "./components/Events/Event";
 import Events from "./components/Events/Events";
 import CreateEvent from "./components/Events/CreateEvent";
+import AppLayout from "./layout/AppLayout";
+import AuthLayout from "./layout/AuthLayout";
 
 function App() {
   const [user_data, setUserData] = useState<any>([]);
@@ -32,9 +34,9 @@ function App() {
           setUserData,
         }}
       >
-        <BrowserRouter basename="/auth">
+        {/* <BrowserRouter basename="/auth">
           <Routes>
-            <Route path="/login" element={<Login />} />\
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Login />} />
           </Routes>
         </BrowserRouter>
@@ -56,6 +58,12 @@ function App() {
               </Routes>
             </div>
           </div>
+        </BrowserRouter> */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/app/*" element={<AppLayout />} />
+            <Route path="/auth/*" element={<AuthLayout />} />
+          </Routes>
         </BrowserRouter>
       </UserDataContext.Provider>
     </div>

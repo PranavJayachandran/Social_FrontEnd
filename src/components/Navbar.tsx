@@ -21,7 +21,7 @@ const Navbar = () => {
         <AiFillMessage className="h-6 w-6" />
         <MdNotifications className="h-6 w-6" />
         <div>{user_data.name}</div>
-        <Link to="/editprofile">
+        <Link to="/app/editprofile">
           <div className="h-10 w-10 rounded-full bg-blue-100 overflow-hidden">
             <img src={user_data.user_image} />
           </div>

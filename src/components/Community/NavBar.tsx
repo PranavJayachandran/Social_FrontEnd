@@ -18,26 +18,26 @@ const NavBar = () => {
 
       {(() => {
         switch (location.pathname) {
-          case "/communityjoined":
+          case "/app/communityjoined":
             return (
               <div className="text-xs flex gap-4 items-center">
-                <Link to="/communityjoined">
+                <Link to="/app/communityjoined">
                   <div className="bg-[#72728c] text-white rounded-lg p-2">
                     Joined Communities
                   </div>
                 </Link>
-                <Link to="/communityunjoined">
+                <Link to="/app/communityunjoined">
                   <div>Unjoined Communities</div>
                 </Link>
               </div>
             );
-          case "/communityunjoined":
+          case "/app/communityunjoined":
             return (
               <div className="text-xs flex gap-4 items-center">
-                <Link to="/communityjoined">
+                <Link to="/app/communityjoined">
                   <div>Joined Communities</div>
                 </Link>
-                <Link to="/communityunjoined">
+                <Link to="/app/communityunjoined">
                   <div className="bg-[#72728c] text-white rounded-lg p-2">
                     Unjoined Communities
                   </div>

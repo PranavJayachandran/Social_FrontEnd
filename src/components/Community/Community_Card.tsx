@@ -112,7 +112,7 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
               Join Now
             </button>
             <Link
-              to={"/communityexplore"}
+              to={"/app/communityexplore"}
               state={{ community: community, mode: 0 }}
             >
               <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">

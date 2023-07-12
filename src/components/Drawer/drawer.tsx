@@ -7,7 +7,7 @@ import community from "../../interfaces/community";
 import Community_Drawer from "./Community_Drawer";
 import event from "../../interfaces/event";
 import UpComingEvents from "../UpComingEvents";
-import getUserData from "../../utils/basicsetup";
+import { getUserData } from "../../utils/basicsetup";
 import { UserDataContext } from "../../context";
 import { Link } from "react-router-dom";
 

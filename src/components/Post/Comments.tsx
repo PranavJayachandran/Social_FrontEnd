@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import comment from "../../interfaces/comment";
 import Comment from "./Comment";
+import { getImageSigned } from "../../utils/basicsetup";
+import { UserDataContext } from "../../context";
 interface Props {
   item: Array<comment>;
   post_id: number;
   comment_id: Array<number>;
   user_id: string;
+  user_image: string;
 }
 interface Comments {
   item: Array<comment>;
 }
 
-const Comments = ({ item, post_id, comment_id, user_id }: Props) => {
+const Comments = ({
+  item,
+  post_id,
+  comment_id,
+  user_id,
+  user_image,
+}: Props) => {
   const [comments, setComments] = useState<Comments>({ item: item });
   const [newComment, setNewComment] = useState<string>("");
+  const { user_data, setUserData } = useContext(UserDataContext);
   const addComment = async () => {
     var commenttemp: comment = {
       id: 0,
@@ -21,8 +31,8 @@ const Comments = ({ item, post_id, comment_id, user_id }: Props) => {
       upvote: 0,
       downvote: 0,
       table_name: {
-        name: "One",
-        user_image: "Two",
+        name: user_data.name,
+        user_image: user_data.user_image,
       },
       upvotes_downvotes: [
         {
@@ -53,6 +63,7 @@ const Comments = ({ item, post_id, comment_id, user_id }: Props) => {
       .then((response) => response.text())
       .then((result) => {
         commenttemp.id = parseInt(result);
+        console.log("CCC", commenttemp, user_data);
         setComments((prevState) => ({
           item: [commenttemp, ...prevState.item],
         }));
@@ -67,7 +78,9 @@ const Comments = ({ item, post_id, comment_id, user_id }: Props) => {
   return (
     <div>
       <div className="flex gap-4 mt-6">
-        <div className="h-8 w-8 rounded-full bg-teal-100"></div>
+        <div className="h-8 w-8 rounded-full bg-teal-100 overflow-hidden">
+          <img src={user_image} className="h-full w-full" />
+        </div>
         <input
           className="px-4 py-1 w-full rounded-xl bg-[#343440]"
           placeholder="What's on your mind?"

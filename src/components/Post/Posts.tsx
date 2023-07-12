@@ -3,6 +3,7 @@ import PostSate from "../../interfaces/postState";
 import post from "../../interfaces/post";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
+import { getImageSigned } from "../../utils/basicsetup";
 
 // var posts: Array<post> = [
 //   {
@@ -64,13 +65,18 @@ const Posts = () => {
       .then((result) => MapToPosts(result))
       .catch((error) => console.log("error", error));
   }
+  async function signImage(image: string) {
+    let signedImage = await getImageSigned(image, "UserImages", 6000);
+    if (signedImage != undefined) return signedImage;
+    else return "";
+  }
   async function MapToPosts(results: any) {
-    results.map((item: any) => {
+    results.map(async (item: any) => {
       var post: post = {
         id: item.id,
         username: item.table_name.name,
         user_id: item.user_id,
-        user_image: item.table_name.user_image,
+        user_image: await signImage(item.table_name.user_image),
         time: new Date(item.inserted_at),
         community_name: "Community Name",
         content: item.content,

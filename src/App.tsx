@@ -10,7 +10,7 @@ import EditProfile from "./components/EditProfile";
 import Community from "./components/Community/Community";
 import CommunityExplore from "./components/Community/CommunityExplore";
 import { UserDataContext } from "./context";
-import getUserData from "./utils/basicsetup";
+import { getUserData } from "./utils/basicsetup";
 import Event from "./components/Events/Event";
 import Events from "./components/Events/Events";
 import CreateEvent from "./components/Events/CreateEvent";

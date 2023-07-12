@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import comment from "../../interfaces/comment";
+import { getImageSigned } from "../../utils/basicsetup";
 
 interface Props {
   user_id: string;
@@ -130,10 +131,23 @@ const Comment = ({ item, user_id }: Props) => {
     }
   }, [item]);
 
+  useEffect(() => {
+    if (item && item.table_name) getSignedImage(item.table_name.user_image);
+  }, [item]);
+
+  async function getSignedImage(image: string) {
+    let signedImage: any = await getImageSigned(image, "UserImages", 6000);
+    if (signedImage == undefined) signedImage = "";
+    setComment((prev) => ({
+      ...prev,
+      table_name: { ...prev.table_name, user_image: signedImage },
+    }));
+  }
+
   return (
     <div className="mt-2 items-center flex gap-4 w-full text-sm">
       <div className="h-6 w-6 rounded-full overflow-hidden bg-violet-100">
-        <img src={comment.table_name.user_image} />
+        <img className="h-full w-full" src={comment.table_name.user_image} />
       </div>
       <div className="w-full">
         <div className="flex gap-2">

@@ -116,12 +116,13 @@ const Post = ({ item }: Props) => {
     if (exists) {
       setliked_disliked_by_user(exists.value);
     }
+    console.log("Imagee", item);
   }, [item]);
   return (
     <div className="px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92] flex flex-col gap-2">
       <div className="flex items-center gap-2">
         <div className="h-8 w-8 overflow-hidden bg-teal-100 rounded-full">
-          <img src={post.user_image} />
+          <img className="h-full w-full" src={post.user_image} />
         </div>
         <div className="text-sm">
           <div>{post.username}</div>
@@ -161,6 +162,7 @@ const Post = ({ item }: Props) => {
         post_id={post.id}
         comment_id={post.comment_id}
         user_id={post.user_id}
+        user_image={post.user_image}
       />
     </div>
   );

@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { generateRandomString } from "../utils/getRandomName";
+import { UserDataContext } from "../context";
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASEURL!,
@@ -8,27 +10,26 @@ const supabase = createClient(
 );
 
 const UserData = () => {
+  const { user_data, setUserData } = useContext(UserDataContext);
   const [name, setName] = useState<string>("");
   const [interests, setInterests] = useState<string>("");
   const [socials, setSocials] = useState<string>("");
-  const [selectedFile, setSelectedFile] = useState<any>(null);
   const [imageUrl, setImageUrl] = useState<any>("");
+  let selectedFile = "";
 
-  const handleFileInputChange = (event: any) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-  };
-  const handleUpload = async () => {
+  const handleFileInputChange = async (event: any) => {
+    selectedFile = event.target.files[0];
+    let name = generateRandomString(10);
     if (selectedFile) {
       const { data, error } = await supabase.storage
         .from("UserImages")
-        .upload(`${selectedFile.name}`, selectedFile);
+        .upload(`${name}`, selectedFile);
       if (error) {
         console.error("Error uploading image:", error.message);
       } else {
         const { data, error } = await supabase.storage
           .from("UserImages")
-          .createSignedUrl(`${selectedFile.name}`, 6000);
+          .createSignedUrl(`${name}`, 600);
         setImageUrl(data?.signedUrl);
         if (error) console.error("Error while fetching", error.message);
         console.log(data);
@@ -36,24 +37,63 @@ const UserData = () => {
       }
     }
   };
+
+  const updateUserDetails = () => {
+    console.log("HERE");
+    if (setUserData != undefined) {
+      setUserData((prev: any) => ({
+        ...prev,
+        name: name,
+        interests: interests,
+        socials: socials,
+        user_image: selectedFile,
+        user_image_link: imageUrl,
+      }));
+    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      id: user_data.id,
+      name: name,
+      interests: interests,
+      socials: socials,
+      user_image: selectedFile,
+    });
+
+    var requestOptions: RequestInit = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch("http://localhost:5000/user", requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
+  useEffect(() => {
+    if (user_data) {
+      console.log(user_data);
+      setName(user_data.name);
+      setSocials(user_data.socials);
+      setInterests(user_data.interests);
+      setImageUrl(user_data.user_image_link);
+    }
+  }, [user_data]);
+
   return (
     <div className="flex flex-col justify-center items-center gap-10 bg-[#17181c] h-[509px] text-white">
-      <div>
-        <div>
-          <div className="flex justify-center h-28 w-28 border rounded-full bg-green-200">
-            <img src={imageUrl} className="h-28 rounded-full w-28" />
-          </div>
-          <div className="flex justify-center items-center flex-col">
-            <label htmlFor="upload" className="mt-2 custom-file-upload">
-              <input type="file" onChange={handleFileInputChange} />
-            </label>
-            <button
-              className="text-xs bg-blue-200 hover:bg-white hover:text-blue-200 transition p-1 rounded-xl mt-2"
-              onClick={handleUpload}
-            >
-              Upload Image
-            </button>
-          </div>
+      <div className="-mb-6 flex justify-center flex-col items-center">
+        <div className="border h-24 w-24 sm:h-32 sm:w-32 flex flex-col justify-center items-center overflow-hidden rounded-full">
+          <img src={imageUrl} className="h-24 w-24 sm:h-36 sm:w-36" />
+        </div>
+        <div className="text-white bg-[#26272e] rounded-xl flex justify-center items-center h-5 w-5 hover:bg-white hover:text-[#26272e] transition">
+          <label className="cursor-pointer">
+            + <input type="file" id="file" onChange={handleFileInputChange} />
+          </label>
         </div>
       </div>
       <div>
@@ -86,7 +126,7 @@ const UserData = () => {
       <div>
         <button
           className="bg-[#26272e] px-4 py-2 rounded-xl text-sm transition hover:bg-white hover:text-[#26272e]"
-          onClick={() => console.log(name, interests, socials)}
+          onClick={updateUserDetails}
         >
           Submit
         </button>

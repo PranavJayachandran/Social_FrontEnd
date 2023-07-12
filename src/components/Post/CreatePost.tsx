@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PostSate from "../../interfaces/postState";
 import post from "../../interfaces/post";
+import { UserDataContext } from "../../context";
+import { getImageSigned } from "../../utils/basicsetup";
 
 interface Props {
   setPosts: React.Dispatch<React.SetStateAction<PostSate>>;
@@ -8,13 +10,20 @@ interface Props {
 
 const CreatePost = ({ setPosts }: Props) => {
   const [content, setContent] = useState<string>("");
+  const { user_data, setUserData } = useContext(UserDataContext);
+
+  const signImage = async (image: string) => {
+    let imageUrl = await getImageSigned(user_data.image, "UserImages", 6000);
+    if (imageUrl == undefined) return "";
+    return imageUrl;
+  };
 
   async function post() {
     var post: post = {
       id: 0,
-      username: "item.username",
-      user_id: "1",
-      user_image: "1",
+      username: user_data.name,
+      user_id: user_data.id,
+      user_image: await signImage(user_data.user_image),
       time: new Date(123213213),
       community_name: "Community Name",
       content: content,

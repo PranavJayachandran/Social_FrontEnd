@@ -22,8 +22,8 @@ const Navbar = () => {
         <MdNotifications className="h-6 w-6" />
         <div>{user_data.name}</div>
         <Link to="/app/editprofile">
-          <div className="h-10 w-10 rounded-full bg-blue-100 overflow-hidden">
-            <img src={user_data.user_image} />
+          <div className="h-10 w-10 rounded-full flex justify-center items-center bg-blue-100 overflow-hidden">
+            <img className="h-full w-full" src={user_data.user_image_link} />
           </div>
         </Link>
       </div>

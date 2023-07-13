@@ -54,7 +54,7 @@ const NavBar = () => {
         <MdNotifications className="h-6 w-6" />
         <div className="flex gap-4 justify-center items-center">
           <div>{user_data.name}</div>
-          <Link to="/editprofile">
+          <Link to="/app/editprofile">
             <div className="h-10 w-10 rounded-full flex justify-center items-center bg-blue-100 overflow-hidden">
               <img className="h-full w-full" src={user_data.user_image_link} />
             </div>

@@ -44,7 +44,7 @@ const CreatePost = ({ setPosts }: Props) => {
 
     var raw = JSON.stringify({
       content: content,
-      user_id: 1,
+      user_id: user_data.id,
     });
 
     var requestOptions: RequestInit = {

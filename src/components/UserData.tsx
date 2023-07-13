@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { generateRandomString } from "../utils/getRandomName";
 import { UserDataContext } from "../context";
+import { useNavigate } from "react-router-dom";
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASEURL!,
@@ -14,8 +15,10 @@ const UserData = () => {
   const [name, setName] = useState<string>("");
   const [interests, setInterests] = useState<string>("");
   const [socials, setSocials] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<any>(user_data.user_image_link);
+  const [imageUrl, setImageUrl] = useState<any>();
   const [fileName, setFileName] = useState("");
+  const navigate = useNavigate();
+
   let selectedFile = "";
 
   const handleFileInputChange = async (event: any) => {
@@ -69,9 +72,12 @@ const UserData = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/user", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/user`, requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        console.log("HERE");
+        navigate("/app/home");
+      })
       .catch((error) => console.log("error", error));
   };
 

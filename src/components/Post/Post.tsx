@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import post from "../../interfaces/post";
 import Comments from "./Comments";
+import { UserDataContext } from "../../context";
 
 interface Props {
   item: post;
@@ -11,6 +12,7 @@ const Post = ({ item }: Props) => {
   const [post, setPost] = useState<post>(item);
   const [liked_disliked_by_user, setliked_disliked_by_user] =
     useState<number>(-2);
+  const { user_data, setUserData } = useContext(UserDataContext);
   let like_dislike_value = -2;
 
   const postLikeDislike = async (prev: number) => {
@@ -20,7 +22,7 @@ const Post = ({ item }: Props) => {
     var raw = JSON.stringify({
       post_id: item.id,
       value: like_dislike_value,
-      user_id: item.user_id,
+      user_id: user_data.id,
       prev: prev,
     });
 
@@ -44,7 +46,7 @@ const Post = ({ item }: Props) => {
     var raw = JSON.stringify({
       post_id: item.id,
       value: like_dislike_value,
-      user_id: item.user_id,
+      user_id: user_data.id,
       prev: prev,
     });
 
@@ -112,12 +114,13 @@ const Post = ({ item }: Props) => {
     }
   };
   useEffect(() => {
-    let exists = item.likes_dislikes.find((obj) => obj.user_id == 1);
+    let exists = item.likes_dislikes.find((obj) => obj.user_id == user_data.id);
+    console.log(item.likes_dislikes, user_data.id);
     if (exists) {
       setliked_disliked_by_user(exists.value);
     }
     console.log(post);
-  }, [item]);
+  }, [item, user_data]);
   return (
     <div className="px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92] flex flex-col gap-2">
       <div className="flex items-center gap-2">
@@ -161,8 +164,8 @@ const Post = ({ item }: Props) => {
         item={post.comments}
         post_id={post.id}
         comment_id={post.comment_id}
-        user_id={post.user_id}
-        user_image={post.user_image}
+        user_id={user_data.id}
+        user_image={user_data.image}
       />
     </div>
   );

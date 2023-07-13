@@ -74,3 +74,15 @@ input {
 input[type="file"] {
   display: none;
 }
+.glass-bg {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+.image-bg {
+  background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkKGcFT3CRbCouyfPSSnO4NptxZ7WFtoDwfZ_c8ndPK3Lb-NKTgduJE1VUbT0MmKLUBc8&usqp=CAU");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}

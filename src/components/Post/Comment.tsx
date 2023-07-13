@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import comment from "../../interfaces/comment";
 import { getImageSigned } from "../../utils/basicsetup";
+import { UserDataContext } from "../../context";
 
 interface Props {
   user_id: string;
@@ -9,6 +10,8 @@ interface Props {
 const Comment = ({ item, user_id }: Props) => {
   const [comment, setComment] = useState<comment>(item);
   const [updownbyuser, setupdownbyuser] = useState<number>(-2);
+  const { user_data, setUserData } = useContext(UserDataContext);
+
   let updown = -2;
 
   const postUpvoteDownvote = async (prev: number) => {
@@ -125,11 +128,13 @@ const Comment = ({ item, user_id }: Props) => {
     }
   };
   useEffect(() => {
-    let exists = item.upvotes_downvotes.find((obj) => obj.user_id == 1);
+    let exists = item.upvotes_downvotes.find(
+      (obj) => obj.user_id == user_data.id
+    );
     if (exists) {
       setupdownbyuser(exists.value);
     }
-  }, [item]);
+  }, [item, user_data]);
 
   useEffect(() => {
     if (item && item.users) getSignedImage(item.users.user_image);

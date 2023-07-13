@@ -9,7 +9,8 @@ import event from "../../interfaces/event";
 import UpComingEvents from "../UpComingEvents";
 import { getUserData } from "../../utils/basicsetup";
 import { UserDataContext } from "../../context";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
@@ -70,6 +71,17 @@ const Image3: React.FC = () => (
 
 const Drawer = () => {
   const { user_data, setUserData } = useContext(UserDataContext);
+  const navigate = useNavigate();
+  const logout = async () => {
+    const supabase = createClient(
+      process.env.REACT_APP_SUPABASEURL!,
+      process.env.REACT_APP_SUPABASEKEY!,
+      { auth: { persistSession: false } }
+    );
+    const { error } = await supabase.auth.signOut();
+    localStorage.removeItem("user_id");
+    navigate("/auth/login");
+  };
 
   return (
     <div className=" h-screen hide_scroll overflow-scroll w-3/12 ">
@@ -147,6 +159,12 @@ const Drawer = () => {
           ) : (
             <></>
           )}
+        </div>
+        <div
+          className="bg-red-800 rounded-xl text-center text-slate-300 py-2 transition hover:text-red-800 hover:bg-slate-300 cursor-pointer"
+          onClick={logout}
+        >
+          <div>Logout</div>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ const supabase = createClient(
 const Login = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string>("pranjpranav@gmail.com");
+  const [email, setEmail] = useState<string>("pranavpranj@gmail.com");
   const [password, setPassword] = useState<string>("12345678");
   const [errormessage, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -36,6 +36,29 @@ const Login = () => {
           setError(error.message);
         }
       } else {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          email: data?.user?.email,
+          id: data?.user?.id,
+        });
+
+        var requestOptions: RequestInit = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
+          .then((response) => response.text())
+          .then(async (result) => {
+            console.log(result);
+          })
+          .catch((error) => console.log("error", error));
+
+        console.log(data);
         setMessage("Verification Mail has been set");
       }
     }
@@ -49,35 +72,30 @@ const Login = () => {
         console.error("Error logging in:", error.message);
         setError(error.message);
       } else {
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-        // var raw = JSON.stringify({
-        //   email: data.user.email,
-        //   id: data.user.id,
-        // });
+        var raw = JSON.stringify({
+          email: data.user.email,
+          id: data.user.id,
+        });
 
-        // var requestOptions: RequestInit = {
-        //   method: "POST",
-        //   headers: myHeaders,
-        //   body: raw,
-        //   redirect: "follow",
-        // };
-
-        // fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
-        //   .then((response) => response.text())
-        //   .then(async (result) => {
-        //     console.log("RES", result);
-        //     while (setUserData == undefined);
-        //     setUserData(await getUserData(result));
-        //     navigate("/app/editprofile");
-        //     console.log("Logged in user:", data);
-        //   })
-        //   .catch((error) => console.log("error", error));
         var requestOptions: RequestInit = {
-          method: "GET",
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
           redirect: "follow",
         };
+
+        fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
+          .then((response) => response.text())
+          .then(async (result) => {
+            while (setUserData == undefined);
+            setUserData(await getUserData(result));
+            navigate("/app/editprofile");
+            console.log("Logged in user:", data);
+          })
+          .catch((error) => console.log("error", error));
 
         while (setUserData == undefined);
         localStorage.setItem("user_id", data.user.id);
@@ -93,7 +111,15 @@ const Login = () => {
   return (
     <div>
       <div className="flex w-full">
-        <div className="flex bg-red-100 flex-1">One</div>
+        <div className="flex justify-center image-bg items-center bg-[#17181c] flex-1">
+          <div className="flex flex-col justify-center items-center gap-10 glass-bg w-96 text-slate-600 py-20 px-4">
+            <div className="text-4xl">Company Name</div>
+            <div className="text-lg text-center">
+              The one stop place to manage communities, find people with similar
+              interests and join amazing events
+            </div>
+          </div>
+        </div>
         <div className="text-white flex flex-col justify-center items-center  bg-[#17181c] h-screen flex-1">
           <div className="flex flex-col gap-8">
             <div className="text-3xl text-center ">Company Name</div>

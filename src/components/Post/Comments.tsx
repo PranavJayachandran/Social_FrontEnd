@@ -48,7 +48,7 @@ const Comments = ({
 
     var raw = JSON.stringify({
       content: newComment,
-      user_id: 1,
+      user_id: user_data.id,
       post_id: post_id,
     });
 
@@ -79,7 +79,7 @@ const Comments = ({
     <div>
       <div className="flex gap-4 mt-6">
         <div className="h-8 w-8 rounded-full bg-teal-100 overflow-hidden">
-          <img src={user_image} className="h-full w-full" />
+          <img src={user_data.user_image_link} className="h-full w-full" />
         </div>
         <input
           className="px-4 py-1 w-full rounded-xl bg-[#343440]"

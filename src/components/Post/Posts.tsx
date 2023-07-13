@@ -74,9 +74,9 @@ const Posts = () => {
     results.map(async (item: any) => {
       var post: post = {
         id: item.id,
-        username: item.table_name.name,
+        username: item.users.name,
         user_id: item.user_id,
-        user_image: await signImage(item.table_name.user_image),
+        user_image: await signImage(item.users.user_image),
         time: new Date(item.inserted_at),
         community_name: "Community Name",
         content: item.content,

@@ -100,7 +100,7 @@ const Drawer = () => {
                   index < 3 && <Community_Drawer item={item.community} />
               )
             ) : (
-              <></>
+              <div>Join more communities to interact</div>
             )}
           </div>
           {user_data != undefined &&
@@ -129,7 +129,7 @@ const Drawer = () => {
                   index < 3 && <UpComingEvents item={item} />
               )
             ) : (
-              <></>
+              <div>Why miss out on events</div>
             )}
           </div>
           {user_data != undefined && user_data.event_to_user !== undefined ? (

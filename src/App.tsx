@@ -22,7 +22,8 @@ function App() {
 
   useEffect(() => {
     const setUp = async () => {
-      setUserData(await getUserData(1));
+      let id = localStorage.getItem("user_id");
+      if (id != undefined) setUserData(await getUserData(id));
     };
     setUp();
   }, []);

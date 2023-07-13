@@ -30,7 +30,7 @@ const Comments = ({
       comment_content: newComment,
       upvote: 0,
       downvote: 0,
-      table_name: {
+      users: {
         name: user_data.name,
         user_image: user_data.user_image,
       },

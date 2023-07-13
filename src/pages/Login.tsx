@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { UserDataContext } from "../context";
+import { getUserData } from "../utils/basicsetup";
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASEURL!,
@@ -17,6 +19,7 @@ const Login = () => {
   const [errormessage, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
+  const { user_data, setUserData } = useContext(UserDataContext);
 
   const authenticate = async () => {
     setError("");
@@ -46,6 +49,39 @@ const Login = () => {
         console.error("Error logging in:", error.message);
         setError(error.message);
       } else {
+        // var myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json");
+
+        // var raw = JSON.stringify({
+        //   email: data.user.email,
+        //   id: data.user.id,
+        // });
+
+        // var requestOptions: RequestInit = {
+        //   method: "POST",
+        //   headers: myHeaders,
+        //   body: raw,
+        //   redirect: "follow",
+        // };
+
+        // fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
+        //   .then((response) => response.text())
+        //   .then(async (result) => {
+        //     console.log("RES", result);
+        //     while (setUserData == undefined);
+        //     setUserData(await getUserData(result));
+        //     navigate("/app/editprofile");
+        //     console.log("Logged in user:", data);
+        //   })
+        //   .catch((error) => console.log("error", error));
+        var requestOptions: RequestInit = {
+          method: "GET",
+          redirect: "follow",
+        };
+
+        while (setUserData == undefined);
+        localStorage.setItem("user_id", data.user.id);
+        setUserData(await getUserData(data.user.id));
         navigate("/app/editprofile");
         console.log("Logged in user:", data);
       }

@@ -13,12 +13,13 @@ interface Props {
 const Community_Card = ({ item, mode, removeCommunity }: Props) => {
   const { user_data, setUserData } = useContext(UserDataContext);
   const [community, setCommunity] = useState<community>(item);
+  console.log(user_data);
   const joinCommunity = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      user_id: 1,
+      user_id: user_data.id,
       community_id: community.id,
     });
 
@@ -37,7 +38,7 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
       ...prevState,
       members: community.members + 1,
     }));
-    if (setUserData != undefined)
+    if (setUserData != undefined && user_data.community_to_user)
       setUserData((prevState: any) => ({
         ...prevState,
         community_to_user: [
@@ -72,7 +73,7 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
       members: community.members - 1,
     }));
 
-    if (setUserData != undefined) {
+    if (setUserData != undefined && user_data.community_to_user) {
       setUserData((prevState: any) => {
         let filteredItems = [];
         filteredItems = prevState.community_to_user.filter((item: any) => {

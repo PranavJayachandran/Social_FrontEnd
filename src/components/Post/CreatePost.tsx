@@ -13,17 +13,16 @@ const CreatePost = ({ setPosts }: Props) => {
   const { user_data, setUserData } = useContext(UserDataContext);
 
   const signImage = async (image: string) => {
-    let imageUrl = await getImageSigned(user_data.image, "UserImages", 6000);
+    let imageUrl = await getImageSigned(image, "UserImages", 6000);
     if (imageUrl == undefined) return "";
     return imageUrl;
   };
-
   async function post() {
     var post: post = {
       id: 0,
       username: user_data.name,
       user_id: user_data.id,
-      user_image: await signImage(user_data.user_image),
+      user_image: user_data.user_image_link,
       time: new Date(123213213),
       community_name: "Community Name",
       content: content,
@@ -33,8 +32,8 @@ const CreatePost = ({ setPosts }: Props) => {
       comment_id: [],
       likes_dislikes: [
         {
-          value: 1,
-          user_id: 1,
+          value: -2,
+          user_id: user_data.id,
           id: 0,
         },
       ],
@@ -70,7 +69,9 @@ const CreatePost = ({ setPosts }: Props) => {
   return (
     <div className="px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
       <div className="flex gap-4 ">
-        <div className="h-8 w-8 rounded-full bg-green-100"></div>
+        <div className="h-8 w-8 rounded-full bg-green-100 overflow-hidden">
+          <img src={user_data.user_image_link} className="h-full w-full" />
+        </div>
         <input
           className="px-4 w-full rounded-xl bg-[#343440]"
           placeholder="What's on your mind?"

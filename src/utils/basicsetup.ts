@@ -11,14 +11,14 @@ async function getImageSigned(
   bucket_name: string,
   time: number
 ) {
-  console.log("image");
   const { data, error } = await supabase.storage
     .from(bucket_name)
     .createSignedUrl(image, time);
+  console.log("GEtting image signed for", image, data);
   return data?.signedUrl;
 }
 
-async function getUserData(id: number) {
+async function getUserData(id: string) {
   let user_data: any;
   var requestOptions: RequestInit = {
     method: "GET",
@@ -29,6 +29,7 @@ async function getUserData(id: number) {
     .then((response) => response.json())
     .then(async (result: any) => {
       user_data = result;
+
       let image_link = await getImageSigned(
         user_data.user_image,
         "UserImages",
@@ -40,7 +41,7 @@ async function getUserData(id: number) {
       };
     })
     .catch((error) => console.log("error", error));
-
+  console.log("USERDE", user_data);
   return user_data;
 }
 

@@ -3,7 +3,7 @@ interface comment {
   comment_content: string;
   upvote: number;
   downvote: number;
-  table_name: {
+  users: {
     name: string;
     user_image: string;
   };

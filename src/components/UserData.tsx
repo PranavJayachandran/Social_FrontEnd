@@ -14,12 +14,14 @@ const UserData = () => {
   const [name, setName] = useState<string>("");
   const [interests, setInterests] = useState<string>("");
   const [socials, setSocials] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<any>("");
+  const [imageUrl, setImageUrl] = useState<any>(user_data.user_image_link);
+  const [fileName, setFileName] = useState("");
   let selectedFile = "";
 
   const handleFileInputChange = async (event: any) => {
     selectedFile = event.target.files[0];
     let name = generateRandomString(10);
+    setFileName(name);
     if (selectedFile) {
       const { data, error } = await supabase.storage
         .from("UserImages")
@@ -39,14 +41,13 @@ const UserData = () => {
   };
 
   const updateUserDetails = () => {
-    console.log("HERE");
     if (setUserData != undefined) {
       setUserData((prev: any) => ({
         ...prev,
         name: name,
         interests: interests,
         socials: socials,
-        user_image: selectedFile,
+        user_image: fileName,
         user_image_link: imageUrl,
       }));
     }
@@ -58,7 +59,7 @@ const UserData = () => {
       name: name,
       interests: interests,
       socials: socials,
-      user_image: selectedFile,
+      user_image: fileName,
     });
 
     var requestOptions: RequestInit = {

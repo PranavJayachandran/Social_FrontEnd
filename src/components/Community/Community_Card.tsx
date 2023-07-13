@@ -53,7 +53,7 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      user_id: 1,
+      user_id: user_data.id,
       community_id: community.id,
     });
     var requestOptions: RequestInit = {
@@ -122,13 +122,21 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
             </Link>
           </div>
         ) : (
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center gap-3 mt-6">
             <button
               className="px-4 py-2 text-white transition hover:bg-white hover:text-red-500 bg-red-500 rounded-xl"
               onClick={leaveCommunity}
             >
               Leave
             </button>
+            <Link
+              to={"/app/communityexplore"}
+              state={{ community: community, mode: 1 }}
+            >
+              <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
+                Explore
+              </button>
+            </Link>
           </div>
         )}
       </div>

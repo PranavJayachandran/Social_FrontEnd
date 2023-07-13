@@ -19,7 +19,7 @@ const CreatePost = ({ setPosts }: Props) => {
   };
   async function post() {
     var post: post = {
-      id: 0,
+      id: user_data.id,
       username: user_data.name,
       user_id: user_data.id,
       user_image: user_data.user_image_link,

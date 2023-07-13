@@ -5,6 +5,7 @@ import community from "../../interfaces/community";
 import { UserDataContext } from "../../context";
 import { Link } from "react-router-dom";
 import event from "../../interfaces/event";
+import Event from "./Event";
 
 const CommunityExplore = () => {
   const location = useLocation();
@@ -19,7 +20,7 @@ const CommunityExplore = () => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      user_id: 1,
+      user_id: user_data.id,
       community_id: community_data.id,
     });
 
@@ -54,7 +55,7 @@ const CommunityExplore = () => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      user_id: 1,
+      user_id: user_data.id,
       community_id: community_data.id,
     });
     var requestOptions: RequestInit = {
@@ -110,20 +111,6 @@ const CommunityExplore = () => {
     getEventsforCommunity();
   }, [community]);
 
-  const formatedDate = (timestamp: Date) => {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = date.toLocaleString("default", { month: "long" });
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    const formattedDate = `${month} ${day}, ${year} ${hours}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-    return formattedDate;
-  };
-
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
       <NavBar />
@@ -143,7 +130,7 @@ const CommunityExplore = () => {
               </div>
             ) : (
               <div
-                className="bg-blue-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
+                className="bg-red-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
                 onClick={LeaveCommunity}
               >
                 Leave
@@ -166,15 +153,7 @@ const CommunityExplore = () => {
           </div>
           <div className="mt-2 gap-2 flex flex-col">
             {events?.map((item) => (
-              <div className="flex items-center gap-2">
-                <div>{item.name}</div>
-                <div className="text-sm">on {formatedDate(item.date)}</div>
-                <div className="flex ">
-                  <button className="py-1 px-2 text-sm bg-red-600 rounded-xl text-white hover:bg-white hover:text-red-600 transition">
-                    Enter
-                  </button>
-                </div>
-              </div>
+              <Event item={item} />
             ))}
           </div>
         </div>

@@ -116,6 +116,7 @@ const Post = ({ item }: Props) => {
     if (exists) {
       setliked_disliked_by_user(exists.value);
     }
+    console.log(post);
   }, [item]);
   return (
     <div className="px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92] flex flex-col gap-2">

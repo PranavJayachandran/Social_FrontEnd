@@ -67,10 +67,12 @@ const Posts = () => {
   }
   async function signImage(image: string) {
     let signedImage = await getImageSigned(image, "UserImages", 6000);
+    console.log("The image", image, signedImage);
     if (signedImage != undefined) return signedImage;
     else return "";
   }
   async function MapToPosts(results: any) {
+    console.log("All posts", results);
     results.map(async (item: any) => {
       var post: post = {
         id: item.id,
@@ -83,7 +85,7 @@ const Posts = () => {
         likes: item.likes,
         dislikes: item.dislikes,
         comment_id: item.comment_id,
-        comments: item.comment,
+        comments: item.comments,
         likes_dislikes: item.likes_dislikes,
       };
       setPosts((prevState) => ({

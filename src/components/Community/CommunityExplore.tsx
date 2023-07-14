@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import NavBar from "./NavBar";
 import { useLocation } from "react-router-dom";
 import community from "../../interfaces/community";
 import { UserDataContext } from "../../context";
@@ -9,6 +8,8 @@ import Event from "./Event";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import Drawer from "../Drawer/drawer";
+import NavBar from "../Navbar";
+import { CgCommunity } from "react-icons/cg";
 
 const CommunityExplore = () => {
   const location = useLocation();
@@ -118,7 +119,12 @@ const CommunityExplore = () => {
 
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
-      <NavBar showDrawer={showDrawer} drawer={drawer} />
+      <NavBar
+        showDrawer={showDrawer}
+        drawer={drawer}
+        icon={<CgCommunity className="sm:h-6 sm:w-6 h-4 w-4" />}
+        name="Community"
+      />
       {isTabletOrMobile ? (
         <motion.div className="text-white absolute" animate={{ x: drawer }}>
           <Drawer />

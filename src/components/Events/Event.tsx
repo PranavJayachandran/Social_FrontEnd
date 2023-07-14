@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import NavBar from "./NavBar";
 import CreateEvent from "./CreateEvent";
 import {
   formatDescription,

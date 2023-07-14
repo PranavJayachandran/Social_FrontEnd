@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import NavBar from "./NavBar";
 import community from "../../interfaces/community";
 import Community_Card from "./Community_Card";
 import communityState from "../../interfaces/communityState";
@@ -9,6 +8,8 @@ import { UserDataContext } from "../../context";
 import { useMediaQuery } from "react-responsive";
 import Drawer from "../Drawer/drawer";
 import { motion } from "framer-motion";
+import { CgCommunity } from "react-icons/cg";
+import NavBar from "../Navbar";
 
 const Community = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
@@ -99,7 +100,12 @@ const Community = () => {
   return (
     <div>
       <div className="border-l h-full border-[#8d8e92] flex-col flex justify-center  w-full bg-[#17181c]">
-        <NavBar showDrawer={showDrawer} drawer={drawer} />
+        <NavBar
+          showDrawer={showDrawer}
+          drawer={drawer}
+          icon={<CgCommunity className="sm:h-6 sm:w-6 h-4 w-4" />}
+          name="Community"
+        />
         {isTabletOrMobile ? (
           <motion.div className="text-white absolute" animate={{ x: drawer }}>
             <Drawer />
@@ -116,21 +122,17 @@ const Community = () => {
                     isTabletOrMobile ? "h-[684px]" : "h-[497px]"
                   } hide_scroll overflow-scroll`}
                 >
-                  <div className="text-[12px] sm:text-xs flex gap-2 sm:gap-4 items-center">
-                    {isTabletOrMobile ? (
-                      <div className="mt-4 w-full gap-2 flex justify-center items-center">
-                        <Link to="/app/communityjoined">
-                          <div className="bg-[#72728c] text-center  text-white rounded-lg p-2">
-                            Joined Communities
-                          </div>
-                        </Link>
-                        <Link to="/app/communityunjoined">
-                          <div className="text-white">Unjoined Communities</div>
-                        </Link>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
+                  <div className="text-[12px] sm:text-sm flex gap-2 sm:gap-4 items-center">
+                    <div className="mt-4 w-full gap-2 flex justify-center items-center">
+                      <Link to="/app/communityjoined">
+                        <div className="bg-[#72728c] text-center  text-white rounded-lg p-2">
+                          Joined Communities
+                        </div>
+                      </Link>
+                      <Link to="/app/communityunjoined">
+                        <div className="text-white">Unjoined Communities</div>
+                      </Link>
+                    </div>
                   </div>
                   <div className="py-10  w-full gap-4 justify-center  flex flex-wrap  ">
                     {joinedCommunities && joinedCommunities.items ? (
@@ -155,21 +157,17 @@ const Community = () => {
                     isTabletOrMobile ? "h-[684px]" : "h-[497px]"
                   } hide_scroll overflow-scroll`}
                 >
-                  <div className="text-xs flex gap-4 items-center">
-                    {isTabletOrMobile ? (
-                      <div className="mt-4 w-full gap-2 flex justify-center items-center">
-                        <Link to="/app/communityjoined">
-                          <div className="text-white">Joined Communities</div>
-                        </Link>
-                        <Link to="/app/communityunjoined">
-                          <div className="bg-[#72728c] text-white rounded-lg p-2">
-                            Unjoined Communities
-                          </div>
-                        </Link>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
+                  <div className="text-[12px] sm:text-sm flex gap-2 sm:gap-4 items-center">
+                    <div className="mt-4 w-full gap-2 flex justify-center items-center">
+                      <Link to="/app/communityjoined">
+                        <div className="text-white">Joined Communities</div>
+                      </Link>
+                      <Link to="/app/communityunjoined">
+                        <div className="bg-[#72728c] text-white rounded-lg p-2">
+                          Unjoined Communities
+                        </div>
+                      </Link>
+                    </div>
                   </div>
                   <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
                     {unjoinedCommunities && unjoinedCommunities.items ? (

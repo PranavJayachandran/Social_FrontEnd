@@ -5,6 +5,7 @@ import Posts from "./Post/Posts";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import Drawer from "./Drawer/drawer";
+import { AiFillHome } from "react-icons/ai";
 
 const Main = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
@@ -12,7 +13,12 @@ const Main = () => {
 
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
-      <Navbar showDrawer={showDrawer} drawer={drawer} />
+      <Navbar
+        showDrawer={showDrawer}
+        drawer={drawer}
+        icon={<AiFillHome className="am:h-6 sm:w-6 h-4 w-4 " />}
+        name="Home"
+      />
       {isTabletOrMobile ? (
         <motion.div className="text-white absolute" animate={{ x: drawer }}>
           <Drawer />

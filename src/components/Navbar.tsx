@@ -1,20 +1,25 @@
 import React, { useContext } from "react";
 import { AiFillHome, AiFillMessage } from "react-icons/ai";
 import { MdNotifications } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { UserDataContext } from "../context";
-import { TiThMenu } from "react-icons/ti";
+import { CgCommunity } from "react-icons/cg";
+import { Link, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { TiThMenu } from "react-icons/ti";
+import { UserDataContext } from "../context";
 
 interface Props {
+  icon: React.ReactNode;
   showDrawer?: (newUserDetails: any) => void;
   drawer: number;
+  name: string;
 }
-const Navbar = ({ showDrawer, drawer }: Props) => {
+const NavBar = ({ showDrawer, drawer, icon, name }: Props) => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
+
+  const location = useLocation();
   const { user_data, setUserData } = useContext(UserDataContext);
   return (
-    <div className=" py-4 px-4 sm:px-10 text-white bg-[#1e1f23] flex w-full justify-between">
+    <div className=" py-4 sm:px-10 px-4 text-white bg-[#1e1f23] flex w-full justify-between">
       {isTabletOrMobile ? (
         <div className=" flex justify-center items-center">
           <TiThMenu
@@ -27,26 +32,23 @@ const Navbar = ({ showDrawer, drawer }: Props) => {
         <></>
       )}
       <div className="flex justify-center items-center gap-2">
-        <AiFillHome className="am:h-6 sm:w-6 h-4 w-4 " />
-        <div className="text-sm sm:text-lg">Home</div>
+        {icon}
+        <div className="text-sm sm:text-lg">{name}</div>
       </div>
-      {/* <div className="text-sm flex gap-4 px-2 rounded-lg justify-center items-center bg-[#343440]">
-        <div className="bg-[#72728c] px-2 rounded-lg py-1">Explore</div>
-        <div>Community feed</div>
-        <div>Mutual friend</div>
-      </div> */}
-      <div className="flex gap-2 sm:gap-4 justify-center items-center">
-        <AiFillMessage className="h-4 w-4 am:h-6 sm:w-6" />
-        <MdNotifications className="h-4 w-4 sm:h-6 sm:w-6" />
-        <div className="sm:text-base text-sm">{user_data.name}</div>
-        <Link to="/app/editprofile">
-          <div className="sm:h-10 sm:w-10 h-6 w-6  rounded-full flex justify-center items-center bg-blue-100 overflow-hidden">
-            <img className="h-full w-full" src={user_data.user_image_link} />
-          </div>
-        </Link>
+      <div className="flex sm:gap-4 gap-2 justify-center items-center">
+        <AiFillMessage className="sm:h-6 sm:w-6 h-4 w-4" />
+        <MdNotifications className="sm:h-6 sm:w-6 h-4 w-4 " />
+        <div className="flex sm:gap-4 gap-2 justify-center items-center">
+          <div className="sm:text-base text-sm">{user_data.name}</div>
+          <Link to="/app/editprofile">
+            <div className="sm:h-10 sm:w-10 h-6 w-6 rounded-full flex justify-center items-center bg-blue-100 overflow-hidden">
+              <img className="h-full w-full" src={user_data.user_image_link} />
+            </div>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Navbar;
+export default NavBar;

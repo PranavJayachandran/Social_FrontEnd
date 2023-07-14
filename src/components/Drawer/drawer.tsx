@@ -12,10 +12,12 @@ import { UserDataContext } from "../../context";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import { useMediaQuery } from "react-responsive";
+import { FaUserFriends } from "react-icons/fa";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
 const BsCalendar3EventComponent: React.FC = () => <BsCalendar3Event />;
+const FaUserFriendsComponent: React.FC = () => <FaUserFriends />;
 var options: Array<option> = [
   {
     name: "Home",
@@ -32,25 +34,12 @@ var options: Array<option> = [
     icon: BsCalendar3EventComponent,
     link: "events",
   },
+  {
+    name: "Friends",
+    icon: FaUserFriendsComponent,
+    link: "friends",
+  },
 ];
-const Image1: React.FC = () => (
-  <img
-    className="h-10 w-10"
-    src="https://th.bing.com/th?id=OIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7&w=279&h=223&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-  />
-);
-const Image2: React.FC = () => (
-  <img
-    className="h-10 w-10 "
-    src="https://th.bing.com/th?id=OIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7&w=279&h=223&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-  />
-);
-const Image3: React.FC = () => (
-  <img
-    className="h-10 w-10"
-    src="https://th.bing.com/th?id=OIP.Wytlw5AmN2HoCJ_kLGF1EgHaF7&w=279&h=223&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
-  />
-);
 
 // var communitys: Array<community> = [
 //   {

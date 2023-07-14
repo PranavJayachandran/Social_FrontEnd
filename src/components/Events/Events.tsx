@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
+import Navbar from "../Navbar";
 import CreateEvent from "./CreateEvent";
 import Event from "./Event";
 import event from "../../interfaces/event";
 import { useMediaQuery } from "react-responsive";
 import { motion } from "framer-motion";
 import Drawer from "../Drawer/drawer";
+import { BsFillCalendarEventFill } from "react-icons/bs";
 
 const Events = () => {
   const [events, setEvents] = useState<Array<event>>();
@@ -32,7 +33,12 @@ const Events = () => {
   }, []);
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
-      <NavBar showDrawer={showDrawer} drawer={drawer} />
+      <Navbar
+        showDrawer={showDrawer}
+        drawer={drawer}
+        icon={<BsFillCalendarEventFill className="sm:h-6 sm:w-6 h-4 w-4 " />}
+        name="Events"
+      />
       {isTabletOrMobile ? (
         <motion.div className="text-white absolute" animate={{ x: drawer }}>
           <Drawer />

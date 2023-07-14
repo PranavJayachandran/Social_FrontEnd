@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import NavBar from "./NavBar";
+import NavBar from "../Navbar";
 import { useLocation } from "react-router-dom";
+import { BsFillCalendarEventFill } from "react-icons/bs";
 
 interface communitydata {
   community_id: number;
@@ -47,7 +48,12 @@ const CreateEvent = () => {
   };
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
-      <NavBar drawer={drawer} showDrawer={showDrawer} />
+      <NavBar
+        showDrawer={showDrawer}
+        drawer={drawer}
+        icon={<BsFillCalendarEventFill className="sm:h-6 sm:w-6 h-4 w-4 " />}
+        name="Events"
+      />
       <div className="hide_scroll overflow-scroll  flex h-[684px] sm:h-[491px]">
         <div className="text-white flex px-10 flex-col gap-2 justify-center w-full">
           <div className="text-lg sm:text-2xl text-center">

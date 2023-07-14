@@ -1,7 +1,10 @@
 import React from "react";
 import trending from "../interfaces/trending";
-import friend from "../interfaces/friend";
 
+interface friend {
+  username: string;
+  last_active_time: Date;
+}
 var today_trending: Array<trending> = [
   {
     name: "Figma maintenance",

@@ -8,6 +8,7 @@ import CreateEvent from "../components/Events/CreateEvent";
 import Events from "../components/Events/Events";
 import Drawer from "../components/Drawer/drawer";
 import { useMediaQuery } from "react-responsive";
+import Friends from "../components/Friends/Friends";
 
 const AppLayout = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
@@ -23,6 +24,8 @@ const AppLayout = () => {
           <Route path="/communityexplore" element={<CommunityExplore />} />
           <Route path="/createevent" element={<CreateEvent />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/friends" element={<Friends />} />
+          <Route path="/recommendations" element={<Friends />} />
         </Routes>
       </div>
     </div>

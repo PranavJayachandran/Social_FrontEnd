@@ -15,7 +15,8 @@ async function getImageSigned(
     .from(bucket_name)
     .createSignedUrl(image, time);
   console.log("GEtting image signed for", image, data);
-  return data?.signedUrl;
+  if (data?.signedUrl != undefined) return data?.signedUrl;
+  return "";
 }
 
 async function getUserData(id: string) {

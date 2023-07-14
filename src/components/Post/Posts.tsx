@@ -96,6 +96,9 @@ const Posts = () => {
   useEffect(() => {
     getPosts();
   }, []);
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
   return (
     <div className="mx-14 py-10 w-2/3">
       <CreatePost setPosts={setPosts} />

@@ -96,13 +96,13 @@ const Event = ({ item }: Props) => {
     isUserAttendingEvnet();
   }, [user_data]);
   return (
-    <div className="flex items-center gap-2">
-      <div>{item.name}</div>
-      <div className="text-sm">on {formatedDate(item.date)}</div>
-      <div className="flex ">
+    <div className="flex sm:justify-start justify-center items-center gap-2">
+      <div className="sm:text-base text-sm">{item.name}</div>
+      <div className="text-xs sm:text-sm">on {formatedDate(item.date)}</div>
+      <div className="flex justify-center items-center">
         {callToAction == "Join" ? (
           <div
-            className="mt-2 bg-green-600 w-14 text-center py-1 rounded-lg text-white text-sm hover:bg-white hover:text-green-400 transition cursor-pointer"
+            className="sm:mt-2 bg-green-600 w-14 text-center py-1 rounded-lg text-white text-xs sm:text-sm hover:bg-white hover:text-green-400 transition cursor-pointer"
             onClick={() => joinEvent(item.id)}
           >
             {callToAction}
@@ -112,7 +112,7 @@ const Event = ({ item }: Props) => {
         )}
         {callToAction == "Leave" ? (
           <div
-            className="hover:bg-white hover:text-red-400 transition cursor-pointer mt-2 bg-red-500 w-14 text-center py-1 rounded-lg text-white text-sm"
+            className="hover:bg-white hover:text-red-400 transition cursor-pointer sm:mt-2 bg-red-500 w-14 text-center py-1 rounded-lg text-white text-xs sm:text-sm"
             onClick={() => leaveEvent(item.id)}
           >
             {callToAction}

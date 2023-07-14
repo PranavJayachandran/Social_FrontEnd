@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { UserDataContext } from "../context";
 import { getUserData } from "../utils/basicsetup";
+import { useMediaQuery } from "react-responsive";
 
 const supabase = createClient(
   process.env.REACT_APP_SUPABASEURL!,
@@ -20,6 +21,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const { user_data, setUserData } = useContext(UserDataContext);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   const authenticate = async () => {
     setError("");
@@ -100,15 +102,19 @@ const Login = () => {
   return (
     <div>
       <div className="flex w-full">
-        <div className="flex justify-center image-bg items-center bg-[#17181c] flex-1">
-          <div className="flex flex-col justify-center items-center gap-10 glass-bg w-96 text-slate-600 py-20 px-4">
-            <div className="text-4xl">Company Name</div>
-            <div className="text-lg text-center">
-              The one stop place to manage communities, find people with similar
-              interests and join amazing events
+        {!isTabletOrMobile ? (
+          <div className="flex justify-center image-bg items-center bg-[#17181c] flex-1">
+            <div className="flex flex-col justify-center items-center gap-10 glass-bg w-96 text-slate-600 py-20 px-4">
+              <div className="text-4xl">Company Name</div>
+              <div className="text-lg text-center">
+                The one stop place to manage communities, find people with
+                similar interests and join amazing events
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
         <div className="text-white flex flex-col justify-center items-center  bg-[#17181c] h-screen flex-1">
           <div className="flex flex-col gap-8">
             <div className="text-3xl text-center ">Company Name</div>

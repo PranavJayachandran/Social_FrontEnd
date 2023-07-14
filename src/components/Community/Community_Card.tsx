@@ -95,28 +95,30 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
   //   console.log(user_data);
   // }, [user_data]);
   return (
-    <div className="flex flex-col w-1/4 p-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
-      <div className="h-48 w-48 flex justify-center items-center">
-        <div className="h-60 w-60 flex justify-center items-center overflow-hidden">
+    <div className=" flex flex-col sm:w-1/4 w-1/3 p-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
+      <div className="sm:h-48  sm:w-48 flex justify-center items-center">
+        <div className="h-28 w-28 sm:h-60 sm:w-60 flex justify-center items-center overflow-hidden">
           <img src={community.cover_image} />
         </div>
       </div>
       <div>
-        <div className="text-xl">{community.name}</div>
-        <div className="text-xs">{community.members} Members</div>
+        <div className="text-base sm:text-xl">{community.name}</div>
+        <div className="text-[10px] sm:text-xs">
+          {community.members} Members
+        </div>
         {mode == 1 ? (
           <div className="mt-6 flex justify-center gap-3">
             <button
-              className="bg-blue-600 py-2 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer text-white"
+              className="bg-blue-600 sm:text-base text-[10px] p-2 sm:px-4 sm:py-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer text-white"
               onClick={joinCommunity}
             >
-              Join Now
+              Join
             </button>
             <Link
               to={"/app/communityexplore"}
               state={{ community: community, mode: 0 }}
             >
-              <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
+              <button className="bg-[#343440] sm:text-base text-[10px] p-2 sm:px-4 sm:py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
                 Explore
               </button>
             </Link>
@@ -124,7 +126,7 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
         ) : (
           <div className="flex justify-center gap-3 mt-6">
             <button
-              className="px-4 py-2 text-white transition hover:bg-white hover:text-red-500 bg-red-500 rounded-xl"
+              className="sm:text-base text-[10px] p-2 sm:px-4 sm:py-2 text-white transition hover:bg-white hover:text-red-500 bg-red-500 rounded-xl"
               onClick={leaveCommunity}
             >
               Leave
@@ -133,7 +135,7 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
               to={"/app/communityexplore"}
               state={{ community: community, mode: 1 }}
             >
-              <button className="bg-[#343440] px-2 py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
+              <button className="bg-[#343440] sm:text-base text-[10px] p-2 sm:px-4 sm:py-2 rounded-xl border border-[#343440] hover:bg-transparent transition ">
                 Explore
               </button>
             </Link>

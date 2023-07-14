@@ -11,6 +11,7 @@ import { getUserData } from "../../utils/basicsetup";
 import { UserDataContext } from "../../context";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
+import { useMediaQuery } from "react-responsive";
 
 const AiFillHomeComponent: React.FC = () => <AiFillHome />;
 const BsFillPeopleFillComponent: React.FC = () => <BsFillPeopleFill />;
@@ -71,6 +72,7 @@ const Image3: React.FC = () => (
 
 const Drawer = () => {
   const { user_data, setUserData } = useContext(UserDataContext);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const navigate = useNavigate();
   const logout = async () => {
     const supabase = createClient(
@@ -84,7 +86,11 @@ const Drawer = () => {
   };
 
   return (
-    <div className=" h-screen hide_scroll overflow-scroll w-3/12 ">
+    <div
+      className={` hide_scroll overflow-scroll ${
+        isTabletOrMobile ? "h-[680px] w-full" : "h-screen w-3/12 "
+      } `}
+    >
       <div className=" bg-[#1e1f23] px-6 pb-20 text-[#8d8e92]  flex flex-col justify-center gap-6">
         <div className="flex mt-12 gap-4 pl-3 items-center">
           <div className="h-14 w-14 bg-blue-100 rounded-full"></div>

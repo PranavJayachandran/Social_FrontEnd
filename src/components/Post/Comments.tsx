@@ -78,24 +78,26 @@ const Comments = ({
   return (
     <div>
       <div className="flex gap-4 mt-6">
-        <div className="h-8 w-8 rounded-full bg-teal-100 overflow-hidden">
-          <img src={user_data.user_image_link} className="h-full w-full" />
+        <div>
+          <div className="sm:h-8 sm:w-8 h-6 w-6 rounded-full bg-teal-100 overflow-hidden">
+            <img src={user_data.user_image_link} className="h-full w-full" />
+          </div>
         </div>
         <input
-          className="px-4 py-1 w-full rounded-xl bg-[#343440]"
+          className="sm:text-base text-xs px-2 py-1 w-full rounded-xl bg-[#343440]"
           placeholder="What's on your mind?"
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
         />
         <button
-          className="hover:bg-[#343440] hover:border-[#343440] hover:text-white border  transition py-1 px-2 rounded-xl text-sm flex justify-center items-center"
+          className="hover:bg-[#343440] hover:border-[#343440] hover:text-white border  transition py-1 px-2 rounded-xl text-xs sm:text-sm flex justify-center items-center"
           onClick={addComment}
         >
           Add
         </button>
       </div>
       <div className="mt-4">
-        <div>Comments</div>
+        <div className="sm:text-base text-xs">Comments</div>
         <div className="w-full mt-2">
           {comments.item.map((element) => (
             <Comment item={element} user_id={user_id} key={element.id} />

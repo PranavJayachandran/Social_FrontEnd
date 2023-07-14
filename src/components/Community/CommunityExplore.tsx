@@ -6,6 +6,9 @@ import { UserDataContext } from "../../context";
 import { Link } from "react-router-dom";
 import event from "../../interfaces/event";
 import Event from "./Event";
+import { useMediaQuery } from "react-responsive";
+import { motion } from "framer-motion";
+import Drawer from "../Drawer/drawer";
 
 const CommunityExplore = () => {
   const location = useLocation();
@@ -14,6 +17,8 @@ const CommunityExplore = () => {
   const { user_data, setUserData } = useContext(UserDataContext);
   const [joined, setJoined] = useState<number>(mode);
   const [events, setEvents] = useState<Array<event>>();
+  const [drawer, showDrawer] = useState(-300);
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
 
   const joinCommunity = () => {
     var myHeaders = new Headers();
@@ -113,24 +118,31 @@ const CommunityExplore = () => {
 
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
-      <NavBar />
-      <div className="px-4 py-10 hide_scroll overflow-scroll h-[491px]">
+      <NavBar showDrawer={showDrawer} drawer={drawer} />
+      {isTabletOrMobile ? (
+        <motion.div className="text-white absolute" animate={{ x: drawer }}>
+          <Drawer />
+        </motion.div>
+      ) : (
+        <></>
+      )}
+      <div className="px-4 py-10 hide_scroll overflow-scroll h-[684px] sm:h-[491px]">
         <div className="text-white mb-4 flex justify-between items-center ">
-          <div className="ml-1 text-2xl ">{community_data.name}</div>
+          <div className="ml-1 text-lg sm:text-2xl ">{community_data.name}</div>
           <div className="flex items-center gap-6 ">
-            <div className="text-[#cacbcf] text-sm">
+            <div className="text-[#cacbcf] text-xs sm:text-sm">
               {community_data.members} Members
             </div>
             {joined === 0 ? (
               <div
-                className="bg-blue-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
+                className="sm:text-base text-sm bg-blue-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
                 onClick={joinCommunity}
               >
                 Join Now
               </div>
             ) : (
               <div
-                className="bg-red-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
+                className="sm:text-base text-sm bg-red-600 py-1 px-2 rounded-xl hover:bg-white hover:text-blue-500 transition cursor-pointer"
                 onClick={LeaveCommunity}
               >
                 Leave
@@ -142,13 +154,13 @@ const CommunityExplore = () => {
           <img className="h-full w-full" src={community_data.banner_image} />
         </div>
         <div className="mt-4 text-[#cacbcf]">
-          <div className="mb-2 flex text-lg">
+          <div className="mb-2 flex sm:text-lg">
             <div className=" border-b">About The Community</div>
           </div>
-          <div className="text-sm">{community_data.description}</div>
+          <div className="text-xs sm:text-sm">{community_data.description}</div>
         </div>
         <div className="mt-6 text-[#cacbcf]">
-          <div className=" flex text-lg ">
+          <div className=" flex sm:text-lg ">
             <div className=" border-b">Upcoming Events</div>
           </div>
           <div className="mt-2 gap-2 flex flex-col">

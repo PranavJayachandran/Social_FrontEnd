@@ -103,10 +103,10 @@ const Event = ({ item }: Props) => {
       </div>
       <div className="ml-2 w-full">
         <div className="items-center pr-4 text-[#cacbcf] flex w-full justify-between ">
-          <div>{item?.name}</div>
+          <div className="text-sm sm:text-base">{item?.name}</div>
           {callToAction == "Join" ? (
             <div
-              className="mt-2 bg-green-600 w-14 text-center py-1 rounded-lg text-white text-sm hover:bg-white hover:text-green-400 transition cursor-pointer"
+              className="mt-2 bg-green-600 w-10 sm:w-14 text-center py-1 rounded-lg text-white text-xs sm:text-sm hover:bg-white hover:text-green-400 transition cursor-pointer"
               onClick={joinEvent}
             >
               {callToAction}
@@ -116,7 +116,7 @@ const Event = ({ item }: Props) => {
           )}
           {callToAction == "Leave" ? (
             <div
-              className="hover:bg-white hover:text-red-400 transition cursor-pointer mt-2 bg-red-500 w-14 text-center py-1 rounded-lg text-white text-sm"
+              className="hover:bg-white hover:text-red-400 transition cursor-pointer mt-2 bg-red-500 w-10 sm:w-14 text-center py-1 rounded-lg text-white text-xs ms:text-sm"
               onClick={leaveEvent}
             >
               {callToAction}
@@ -125,7 +125,7 @@ const Event = ({ item }: Props) => {
             <></>
           )}
         </div>
-        <div className="-mt-2 text-[#cacbcf] text-xs">
+        <div className="sm:-mt-2 text-[#cacbcf] text-xs">
           Conducted by {item.community.name}
         </div>
         <div className="mt-2 text-white text-xs">

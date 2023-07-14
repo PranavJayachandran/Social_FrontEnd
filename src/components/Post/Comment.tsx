@@ -151,10 +151,10 @@ const Comment = ({ item, user_id }: Props) => {
 
   return (
     <div className="mt-2 items-center flex gap-4 w-full text-sm">
-      <div className="h-6 w-6 rounded-full overflow-hidden bg-violet-100">
+      <div className="sm:h-6 sm:w-6 h-4 w-4 rounded-full overflow-hidden bg-violet-100">
         <img className="h-full w-full" src={comment.users.user_image} />
       </div>
-      <div className="w-full">
+      <div className="w-full sm:text-base text-xs">
         <div className="flex gap-2">
           <div className="font-semibold text-white">{comment.users.name}:</div>
           <div>{comment.comment_content}</div>

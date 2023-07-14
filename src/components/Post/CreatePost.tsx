@@ -70,11 +70,11 @@ const CreatePost = ({ setPosts }: Props) => {
   return (
     <div className="px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
       <div className="flex gap-4 ">
-        <div className="h-8 w-8 rounded-full bg-green-100 overflow-hidden">
+        <div className="sm:h-8 sm:w-8 h-6 w-6 rounded-full bg-green-100 overflow-hidden">
           <img src={user_data.user_image_link} className="h-full w-full" />
         </div>
         <input
-          className="px-4 w-full rounded-xl bg-[#343440]"
+          className="sm:text-base text-xs px-4 w-full rounded-xl bg-[#343440]"
           placeholder="What's on your mind?"
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -82,7 +82,7 @@ const CreatePost = ({ setPosts }: Props) => {
       </div>
       <div className="flex justify-center mt-4 ">
         <button
-          className="border px-6 rounded-lg py-1 cursor-pointer transition hover:bg-[#343440] hover:border-[#343440] hover:text-white"
+          className="sm:text-base text-xs border sm:px-6 px-4 rounded-lg py-1 cursor-pointer transition hover:bg-[#343440] hover:border-[#343440] hover:text-white"
           onClick={post}
         >
           Post

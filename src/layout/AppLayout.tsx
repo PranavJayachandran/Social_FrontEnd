@@ -7,12 +7,14 @@ import CommunityExplore from "../components/Community/CommunityExplore";
 import CreateEvent from "../components/Events/CreateEvent";
 import Events from "../components/Events/Events";
 import Drawer from "../components/Drawer/drawer";
+import { useMediaQuery } from "react-responsive";
 
 const AppLayout = () => {
+  const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   return (
     <div className="flex">
-      <Drawer />
-      <div className="w-9/12">
+      {!isTabletOrMobile ? <Drawer /> : <></>}
+      <div className={`${!isTabletOrMobile ? "w-9/12" : "w-full"}`}>
         <Routes>
           <Route path="/home" element={<Main />} />
           <Route path="/editprofile" element={<EditProfile />} />

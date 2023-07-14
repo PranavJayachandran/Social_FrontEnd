@@ -138,42 +138,42 @@ const Post = ({ item }: Props) => {
     console.log(post);
   }, [item, user_data]);
   return (
-    <div className="px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92] flex flex-col gap-2">
+    <div className="sm-text-base text-sm px-4 py-4 bg-[#1e1f23] rounded-xl text-[#8d8e92] flex flex-col gap-2">
       <div className="flex items-center gap-2">
-        <div className="h-8 w-8 overflow-hidden bg-teal-100 rounded-full">
+        <div className="sm:h-8 sm:w-8 h-6 w-6 overflow-hidden bg-teal-100 rounded-full">
           <img className="h-full w-full" src={post.user_image} />
         </div>
-        <div className="text-sm">
+        <div className="text-xs sm:text-sm">
           <div>{post.username}</div>
           <div className="flex text-xs items-center gap-1">
-            <AiOutlineClockCircle />
-            <div>{timeDifference(post.time)}</div>
+            <AiOutlineClockCircle className="sm:h-3 sm:w-3 " />
+            <div className="text-xs">{timeDifference(post.time)}</div>
           </div>
         </div>
       </div>
-      <div>{post.content}</div>
+      <div className="text-xs sm:text-base">{post.content}</div>
       <div className="flex gap-4 items-center">
         <div className="flex items-center gap-1">
           <div>
             <AiFillLike
-              className={`h-5 w-5 cursor-pointer ${
+              className={`sm:h-5 sm:w-5 h-3 w-3 cursor-pointer ${
                 liked_disliked_by_user == 1 ? "text-blue-500" : ""
               }`}
               onClick={like}
             />
           </div>
-          <div className="text-sm">{post.likes}</div>
+          <div className="text-xs sm:text-sm">{post.likes}</div>
         </div>
         <div className="flex items-center gap-1">
           <div>
             <AiFillDislike
-              className={`h-5 w-5 cursor-pointer ${
+              className={`sm:h-5 sm:w-5 h-3 w-3 cursor-pointer ${
                 liked_disliked_by_user == -1 ? "text-red-500" : ""
               }`}
               onClick={dislike}
             />
           </div>
-          <div className="text-sm">{post.dislikes}</div>
+          <div className="text-xs sm:text-sm">{post.dislikes}</div>
         </div>
       </div>
       <Comments

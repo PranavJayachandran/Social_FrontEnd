@@ -7,6 +7,7 @@ interface communitydata {
   community_name: string;
 }
 const CreateEvent = () => {
+  const [drawer, showDrawer] = useState(-100);
   const [dateTime, setDateTime] = useState("");
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -46,13 +47,13 @@ const CreateEvent = () => {
   };
   return (
     <div className="border-l h-full border-[#8d8e92] w-full bg-[#17181c]">
-      <NavBar />
-      <div className="hide_scroll overflow-scroll  flex  h-[491px]">
+      <NavBar drawer={drawer} showDrawer={showDrawer} />
+      <div className="hide_scroll overflow-scroll  flex h-[684px] sm:h-[491px]">
         <div className="text-white flex px-10 flex-col gap-2 justify-center w-full">
-          <div className="text-2xl text-center">
+          <div className="text-lg sm:text-2xl text-center">
             Community: {community.community_name}
           </div>
-          <div className="flex flex-col  gap-1">
+          <div className="mt-2 sm:mt-[0px] flex flex-col sm:text-base text-sm gap-1">
             <label>Event Name</label>
             <input
               className="bg-[#343440] rounded-xl p-2"
@@ -61,7 +62,7 @@ const CreateEvent = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col sm:text-base text-sm gap-1">
             <label>Description</label>
             <input
               placeholder="Describe the event in maximum 100 words"
@@ -82,7 +83,7 @@ const CreateEvent = () => {
             </div>
             <div></div>
           </div>
-          <div className="flex justify-center mt-4">
+          <div className="sm:text-base text-sm flex justify-center mt-4">
             <div
               className="bg-blue-600 px-4 py-2 rounded-xl hover:bg-white hover:text-blue-600 transition cursor-pointer"
               onClick={handleSubmit}

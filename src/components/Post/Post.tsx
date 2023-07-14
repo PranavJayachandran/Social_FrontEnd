@@ -113,6 +113,22 @@ const Post = ({ item }: Props) => {
       postLikeDislike(-2);
     }
   };
+
+  const timeDifference = (date: Date) => {
+    let current_date = new Date(Date.now());
+    let year = current_date.getFullYear() - date.getFullYear();
+    let month = current_date.getMonth() - date.getMonth();
+    let bydate = current_date.getDate() - date.getDate();
+    if (year > 1) return `${year} years ago`;
+    else if (year == 1) return `${year} year ago`;
+
+    if (month > 1) return `${month} months ago`;
+    else if (month == 1) return `${month} month ago`;
+
+    if (bydate > 1) return `${bydate} days ago`;
+    else if (bydate == 1) return `${bydate} day ago`;
+    else return `Just now`;
+  };
   useEffect(() => {
     let exists = item.likes_dislikes.find((obj) => obj.user_id == user_data.id);
     console.log(item.likes_dislikes, user_data.id);
@@ -131,7 +147,7 @@ const Post = ({ item }: Props) => {
           <div>{post.username}</div>
           <div className="flex text-xs items-center gap-1">
             <AiOutlineClockCircle />
-            <div>10 mins ago</div>
+            <div>{timeDifference(post.time)}</div>
           </div>
         </div>
       </div>

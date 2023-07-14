@@ -11,6 +11,7 @@ interface Props {
 const CreatePost = ({ setPosts }: Props) => {
   const [content, setContent] = useState<string>("");
   const { user_data, setUserData } = useContext(UserDataContext);
+  let date = new Date();
 
   const signImage = async (image: string) => {
     let imageUrl = await getImageSigned(image, "UserImages", 6000);
@@ -23,7 +24,7 @@ const CreatePost = ({ setPosts }: Props) => {
       username: user_data.name,
       user_id: user_data.id,
       user_image: user_data.user_image_link,
-      time: new Date(123213213),
+      time: new Date(date.getTime()),
       community_name: "Community Name",
       content: content,
       likes: 0,

@@ -88,7 +88,7 @@ const Comments = ({
           onChange={(e) => setNewComment(e.target.value)}
         />
         <button
-          className="hover:bg-[#343440] transition py-1 px-2 rounded-xl text-sm flex justify-center items-center"
+          className="hover:bg-[#343440] hover:border-[#343440] hover:text-white border  transition py-1 px-2 rounded-xl text-sm flex justify-center items-center"
           onClick={addComment}
         >
           Add

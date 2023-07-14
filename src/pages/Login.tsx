@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { UserDataContext } from "../context";
@@ -86,21 +86,10 @@ const Login = () => {
           body: raw,
           redirect: "follow",
         };
-
-        fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
-          .then((response) => response.text())
-          .then(async (result) => {
-            while (setUserData == undefined);
-            setUserData(await getUserData(result));
-            navigate("/app/editprofile");
-            console.log("Logged in user:", data);
-          })
-          .catch((error) => console.log("error", error));
-
         while (setUserData == undefined);
         localStorage.setItem("user_id", data.user.id);
         setUserData(await getUserData(data.user.id));
-        navigate("/app/editprofile");
+        navigate("/app/home");
         console.log("Logged in user:", data);
       }
     }
@@ -154,6 +143,23 @@ const Login = () => {
                 {pathname == "/auth/login" ? "Login" : "Sign Up"}
               </button>
               {isLoading ? <LoadingSpinner /> : <></>}
+            </div>
+            <div>
+              {pathname == "/auth/login" ? (
+                <Link
+                  to="/auth/signup"
+                  className="flex justify-center -mt-2 text-slate-500 hover:underline transition cursor-pointer"
+                >
+                  Don't have an account? Sign Up
+                </Link>
+              ) : (
+                <Link
+                  to="/auth/login"
+                  className="flex justify-center -mt-2 text-slate-500 hover:underline transition cursor-pointer"
+                >
+                  Already Have an account? Login
+                </Link>
+              )}
             </div>
           </div>
         </div>

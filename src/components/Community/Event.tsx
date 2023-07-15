@@ -83,7 +83,6 @@ const Event = ({ item }: Props) => {
 
   const isUserAttendingEvnet = () => {
     let joined = 0;
-    console.log(user_data, item.id);
     if (user_data != undefined && user_data.event_to_user != undefined) {
       user_data.event_to_user.map((event: any) => {
         if (event.event_id === item.id) joined = 1;

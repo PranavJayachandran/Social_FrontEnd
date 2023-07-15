@@ -55,12 +55,9 @@ const Login = () => {
 
         fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
           .then((response) => response.text())
-          .then(async (result) => {
-            console.log(result);
-          })
+          .then(async (result) => {})
           .catch((error) => console.log("error", error));
 
-        console.log(data);
         setMessage("Verification Mail has been set");
       }
     }
@@ -92,7 +89,6 @@ const Login = () => {
         localStorage.setItem("user_id", data.user.id);
         setUserData(await getUserData(data.user.id));
         navigate("/app/home");
-        console.log("Logged in user:", data);
       }
     }
     setEmail("");

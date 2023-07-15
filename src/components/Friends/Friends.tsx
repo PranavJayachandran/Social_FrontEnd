@@ -15,22 +15,47 @@ const Friends = () => {
   const [drawer, showDrawer] = useState(-300);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const [friends, setFriends] = useState<Array<friend>>([]);
-  const [recommendations, setRecommendations] = useState<Array<friend>>();
+  const [recommendations, setRecommendations] = useState<Array<friend>>([]);
   const { user_data, setUserData } = useContext(UserDataContext);
-  const setupFriends = (result: Array<friend>) => {
-    result.map(async (item: friend) => {
-      let friend = item;
-      friend.user_image = await getImageSigned(
-        item.user_image,
-        "UserImages",
-        600
-      );
+  const setupFriends = (users: Array<friend>) => {
+    if (friends.length > 0) return;
+    if (recommendations.length > 0) return;
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-      setFriends((prevState) => [...prevState, friend]);
+    var raw = JSON.stringify({
+      user_id: "5f16163c-1463-450a-b0a5-6d55fb4ba76e",
     });
+
+    var requestOptions: RequestInit = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND}/getfriends`, requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        users.map(async (item: friend) => {
+          if (item.id == user_data.id) return;
+          let friend = item;
+          friend.user_image = await getImageSigned(
+            item.user_image,
+            "UserImages",
+            600
+          );
+          const found = result.some((el: any) => {
+            if (el.friend1 == item.id || el.friend2 == item.id) return true;
+          });
+
+          if (!found) setFriends((prevState) => [...prevState, friend]);
+          else setRecommendations((prevState) => [...prevState, friend]);
+        });
+      })
+      .catch((error) => console.log("error", error));
   };
   const getFriends = () => {
-    console.log("GOt FRiends");
     var requestOptions: RequestInit = {
       method: "GET",
       redirect: "follow",
@@ -42,10 +67,15 @@ const Friends = () => {
       .catch((error) => console.log("error", error));
   };
   useEffect(() => {
-    if (user_data && friends.length == 0) {
+    if (user_data.id && friends.length == 0) {
       getFriends();
     }
   }, [user_data]);
+
+  useEffect(() => {
+    console.log("FRiends", friends, "REC", recommendations);
+  }, [friends, recommendations]);
+
   return (
     <div>
       <div className="border-l h-full border-[#8d8e92] flex-col flex justify-center  w-full bg-[#17181c]">
@@ -85,15 +115,14 @@ const Friends = () => {
                   </div>
                   <div className="py-10  w-full gap-4 justify-center flex flex-wrap  ">
                     {friends ? (
-                      // joinedCommunities.items.map((item: community) => (
-                      //   <Community_Card
-                      //     item={item}
-                      //     removeCommunity={removeCommunity}
-                      //     key={item.id}
-                      //     mode={0}
-                      //   />
-                      //)
-                      friends.map((item) => <div>{item.name}</div>)
+                      recommendations.map((item) => (
+                        <Friend
+                          friend={item}
+                          isFriend={false}
+                          setFriends={setFriends}
+                          setRecommendations={setRecommendations}
+                        />
+                      ))
                     ) : (
                       <></>
                     )}
@@ -121,15 +150,14 @@ const Friends = () => {
                   </div>
                   <div className="py-10 gap-4 justify-center  flex flex-wrap  ">
                     {friends ? (
-                      // joinedCommunities.items.map((item: community) => (
-                      //   <Community_Card
-                      //     item={item}
-                      //     removeCommunity={removeCommunity}
-                      //     key={item.id}
-                      //     mode={0}
-                      //   />
-                      //)
-                      friends.map((item) => <Friend friend={item} />)
+                      friends.map((item) => (
+                        <Friend
+                          friend={item}
+                          isFriend={true}
+                          setFriends={setFriends}
+                          setRecommendations={setRecommendations}
+                        />
+                      ))
                     ) : (
                       <></>
                     )}

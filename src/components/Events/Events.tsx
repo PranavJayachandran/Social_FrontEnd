@@ -22,7 +22,6 @@ const Events = () => {
     fetch(`${process.env.REACT_APP_BACKEND}/events`, requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        console.log("EVEMT", result);
         setEvents(result);
       })
       .catch((error) => console.log("error", error));

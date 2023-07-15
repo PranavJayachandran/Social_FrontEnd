@@ -63,7 +63,6 @@ const Comments = ({
       .then((response) => response.text())
       .then((result) => {
         commenttemp.id = parseInt(result);
-        console.log("CCC", commenttemp, user_data);
         setComments((prevState) => ({
           item: [commenttemp, ...prevState.item],
         }));
@@ -72,9 +71,6 @@ const Comments = ({
 
     setNewComment("");
   };
-  useEffect(() => {
-    console.log(item);
-  }, []);
   return (
     <div>
       <div className="flex gap-4 mt-6">

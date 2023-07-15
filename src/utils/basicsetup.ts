@@ -14,7 +14,6 @@ async function getImageSigned(
   const { data, error } = await supabase.storage
     .from(bucket_name)
     .createSignedUrl(image, time);
-  console.log("GEtting image signed for", image, data);
   if (data?.signedUrl != undefined) return data?.signedUrl;
   return "";
 }

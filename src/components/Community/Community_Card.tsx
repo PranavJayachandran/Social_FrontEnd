@@ -13,7 +13,6 @@ interface Props {
 const Community_Card = ({ item, mode, removeCommunity }: Props) => {
   const { user_data, setUserData } = useContext(UserDataContext);
   const [community, setCommunity] = useState<community>(item);
-  console.log(user_data);
   const joinCommunity = () => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -91,9 +90,6 @@ const Community_Card = ({ item, mode, removeCommunity }: Props) => {
     }
     removeCommunity(community.id, mode);
   };
-  // useEffect(() => {
-  //   console.log(user_data);
-  // }, [user_data]);
   return (
     <div className=" flex flex-col sm:w-1/4 w-1/3 p-4 bg-[#1e1f23] rounded-xl text-[#8d8e92]">
       <div className="sm:h-48  sm:w-48 flex justify-center items-center">

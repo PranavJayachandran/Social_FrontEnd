@@ -37,8 +37,6 @@ const UserData = () => {
           .createSignedUrl(`${name}`, 600);
         setImageUrl(data?.signedUrl);
         if (error) console.error("Error while fetching", error.message);
-        console.log(data);
-        console.log("Image uploaded successfully:", imageUrl);
       }
     }
   };
@@ -75,7 +73,6 @@ const UserData = () => {
     fetch(`${process.env.REACT_APP_BACKEND}/user`, requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log("HERE");
         navigate("/app/home");
       })
       .catch((error) => console.log("error", error));
@@ -83,7 +80,6 @@ const UserData = () => {
 
   useEffect(() => {
     if (user_data) {
-      console.log(user_data);
       setName(user_data.name);
       setSocials(user_data.socials);
       setInterests(user_data.interests);

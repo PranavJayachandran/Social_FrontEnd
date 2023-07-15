@@ -10,7 +10,8 @@ import { getUserData } from "../../utils/basicsetup";
 
 const Profile = () => {
   const location = useLocation();
-  const { user_id, mode } = location.state;
+  const { user_id, mode, isFriend } = location.state;
+  const [isFriendState, setIsFriendState] = useState(isFriend);
   const [drawer, showDrawer] = useState(-300);
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1224px)" });
   const { user_data, setUserData } = useContext(UserDataContext);
@@ -43,15 +44,39 @@ const Profile = () => {
       redirect: "follow",
     };
 
-    fetch("http://localhost:5000/friend", requestOptions)
+    fetch(`${process.env.REACT_APP_BACKEND}/friend`, requestOptions)
       .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((result) => {
+        setIsFriendState((prev: boolean) => !prev);
+      })
+      .catch((error) => console.log("error", error));
+  };
+  const unFriend = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      friend1: user_data.id,
+      friend2: user_id,
+    });
+
+    var requestOptions: RequestInit = {
+      method: "DELETE",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    fetch(`${process.env.REACT_APP_BACKEND}/friend`, requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        setIsFriendState((prev: boolean) => !prev);
+      })
       .catch((error) => console.log("error", error));
   };
   useEffect(() => {
     if (user_data && mode == 0) {
       setUserProfile(0);
-      console.log(user_data);
       setName(user_data.name);
       setSocials(user_data.socials);
       setInterests(user_data.interests);
@@ -60,7 +85,7 @@ const Profile = () => {
       setFriend();
       setUserProfile(1);
     }
-  }, [user_data, user_id]);
+  }, [user_data, user_id, isFriend]);
   return (
     <div>
       <div className="border-l h-full border-[#8d8e92] flex-col flex justify-center  w-full bg-[#17181c]">
@@ -77,7 +102,7 @@ const Profile = () => {
         ) : (
           <></>
         )}
-        <div className="h-[497px] hide_scroll overflow-scroll">
+        <div className="h-[685px] sm:h-[497px] hide_scroll overflow-scroll">
           <div className="flex flex-col justify-center items-center gap-10 bg-[#17181c] h-[509px] text-white">
             <div className="-mb-6 flex justify-center flex-col items-center">
               <div className="border h-24 w-24 sm:h-32 sm:w-32 flex flex-col justify-center items-center overflow-hidden rounded-full">
@@ -98,12 +123,21 @@ const Profile = () => {
             </div>
             {userProfile == 1 ? (
               <div className="text-sm flex">
-                <button
-                  className="bg-blue-600 px-4 py-2 rounded-lg hover:text-blue-600 hover:bg-white transition"
-                  onClick={addFriend}
-                >
-                  Add Friend
-                </button>
+                {isFriendState ? (
+                  <button
+                    className="bg-blue-600 px-4 py-2 rounded-lg hover:text-blue-600 hover:bg-white transition"
+                    onClick={addFriend}
+                  >
+                    Add Friend
+                  </button>
+                ) : (
+                  <button
+                    className="bg-red-600 px-4 py-2 rounded-lg hover:text-red-600 hover:bg-white transition"
+                    onClick={unFriend}
+                  >
+                    Unfriend
+                  </button>
+                )}
               </div>
             ) : (
               <div className="text-sm flex">

@@ -63,13 +63,8 @@ const Community = () => {
     if (user_data && p == 0) {
       p = 1;
       getCommunities();
-      console.log(user_data);
     }
   }, [user_data]);
-
-  useEffect(() => {
-    console.log(joinedCommunities, unjoinedCommunities);
-  }, [joinedCommunities, unjoinedCommunities]);
 
   const removeCommunity = (id: number, mode: number) => {
     if (mode === 1) {

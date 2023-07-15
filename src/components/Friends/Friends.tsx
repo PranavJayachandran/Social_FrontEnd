@@ -83,7 +83,7 @@ const Friends = () => {
           showDrawer={showDrawer}
           drawer={drawer}
           icon={<FaUserFriends className="sm:h-6 sm:w-6 h-4 w-4" />}
-          name="Friends"
+          name="Following"
         />
         {isTabletOrMobile ? (
           <motion.div className="text-white absolute" animate={{ x: drawer }}>

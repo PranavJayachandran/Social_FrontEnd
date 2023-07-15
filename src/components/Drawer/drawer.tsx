@@ -35,7 +35,7 @@ var options: Array<option> = [
     link: "events",
   },
   {
-    name: "Friends",
+    name: "Following",
     icon: FaUserFriendsComponent,
     link: "friends",
   },

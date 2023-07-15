@@ -1,18 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import friend from "../../interfaces/friends";
 import { getImageSigned } from "../../utils/basicsetup";
+import { UserDataContext } from "../../context";
+import { Link } from "react-router-dom";
 
 interface Props {
   friend: friend;
 }
 const Friend = ({ friend }: Props) => {
+  const { user_data, setUserData } = useContext(UserDataContext);
   return (
     <div className={`${friend && friend.user_image ? "w-1/4" : ""}`}>
       {friend && friend.user_image ? (
         <div className="border gap-4 flex justify-center items-center flex-col rounded-xl p-4">
-          <div className="rounded-full overflow-hidden h-32 w-32">
-            <img className="h-full w-full" src={friend.user_image} />
-          </div>
+          <Link to="/app/profile" state={{ user_id: friend.id, mode: 1 }}>
+            <div className="rounded-full overflow-hidden h-32 w-32">
+              <img className="h-full w-full" src={friend.user_image} />
+            </div>
+          </Link>
           <div className="text-white">{friend.name}</div>
           <div>
             <div className="hover:text-blue-600 transition cursor-pointer hover:bg-white bg-blue-500 px-2 py-1 rounded-xl text-sm text-white">

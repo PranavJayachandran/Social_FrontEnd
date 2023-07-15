@@ -40,7 +40,7 @@ const NavBar = ({ showDrawer, drawer, icon, name }: Props) => {
         <MdNotifications className="sm:h-6 sm:w-6 h-4 w-4 " />
         <div className="flex sm:gap-4 gap-2 justify-center items-center">
           <div className="sm:text-base text-sm">{user_data.name}</div>
-          <Link to="/app/editprofile">
+          <Link to="/app/profile" state={{ user_id: user_data.id, mode: 0 }}>
             <div className="sm:h-10 sm:w-10 h-6 w-6 rounded-full flex justify-center items-center bg-blue-100 overflow-hidden">
               <img className="h-full w-full" src={user_data.user_image_link} />
             </div>

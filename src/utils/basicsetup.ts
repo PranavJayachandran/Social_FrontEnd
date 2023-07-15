@@ -42,7 +42,6 @@ async function getUserData(id: string) {
       };
     })
     .catch((error) => console.log("error", error));
-  console.log("USERDE", user_data);
   return user_data;
 }
 

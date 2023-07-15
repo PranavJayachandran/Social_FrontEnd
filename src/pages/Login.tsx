@@ -15,8 +15,8 @@ const supabase = createClient(
 const Login = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState<string>("pranavpranj@gmail.com");
-  const [password, setPassword] = useState<string>("12345678");
+  const [email, setEmail] = useState<string>("demo@gmail.com");
+  const [password, setPassword] = useState<string>("demo@123");
   const [errormessage, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -101,7 +101,7 @@ const Login = () => {
         {!isTabletOrMobile ? (
           <div className="flex justify-center image-bg items-center bg-[#17181c] flex-1">
             <div className="flex flex-col justify-center items-center gap-10 glass-bg w-96 text-slate-600 py-20 px-4">
-              <div className="text-4xl">Company Name</div>
+              <div className="text-4xl">CommunityLink</div>
               <div className="text-lg text-center">
                 The one stop place to manage communities, find people with
                 similar interests and join amazing events
@@ -113,7 +113,7 @@ const Login = () => {
         )}
         <div className="text-white flex flex-col justify-center items-center  bg-[#17181c] h-screen flex-1">
           <div className="flex flex-col gap-8">
-            <div className="text-3xl text-center ">Company Name</div>
+            <div className="text-3xl text-center ">CommunityLink</div>
             <div className="flex flex-col gap-2 mt-6">
               <div className="text-red-700 text-sm">{errormessage}</div>
               <div className="text-slate-200 text-center">{message}</div>

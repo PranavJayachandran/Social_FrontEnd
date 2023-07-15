@@ -24,7 +24,7 @@ const Friends = () => {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      user_id: "5f16163c-1463-450a-b0a5-6d55fb4ba76e",
+      user_id: user_data.id,
     });
 
     var requestOptions: RequestInit = {
@@ -46,7 +46,7 @@ const Friends = () => {
             600
           );
           const found = result.some((el: any) => {
-            if (el.friend1 == item.id || el.friend2 == item.id) return true;
+            if (el.friend2 == item.id) return true;
           });
 
           if (!found) setFriends((prevState) => [...prevState, friend]);
@@ -105,7 +105,7 @@ const Friends = () => {
                     <div className="mt-4 w-full gap-2 flex justify-center items-center">
                       <Link to="/app/friends">
                         <div className="bg-[#72728c] text-center  text-white rounded-lg p-2">
-                          Friends
+                          Following
                         </div>
                       </Link>
                       <Link to="/app/recommendations">
@@ -139,7 +139,7 @@ const Friends = () => {
                   <div className="text-[12px] sm:text-sm flex gap-2 sm:gap-4 items-center">
                     <div className="mt-4 w-full gap-2 flex justify-center items-center">
                       <Link to="/app/friends">
-                        <div className="text-white">Friends</div>
+                        <div className="text-white">Following</div>
                       </Link>
                       <Link to="/app/recommendations">
                         <div className="bg-[#72728c] text-white rounded-lg p-2">

@@ -128,14 +128,14 @@ const Profile = () => {
                     className="bg-blue-600 px-4 py-2 rounded-lg hover:text-blue-600 hover:bg-white transition"
                     onClick={addFriend}
                   >
-                    Add Friend
+                    Follow
                   </button>
                 ) : (
                   <button
                     className="bg-red-600 px-4 py-2 rounded-lg hover:text-red-600 hover:bg-white transition"
                     onClick={unFriend}
                   >
-                    Unfriend
+                    UnFollow
                   </button>
                 )}
               </div>

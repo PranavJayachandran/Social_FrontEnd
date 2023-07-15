@@ -97,14 +97,14 @@ const Friend = ({
                 className="hover:text-blue-600 transition hover:bg-white bg-blue-500 px-2 py-1 rounded-xl text-sm text-white"
                 onClick={addFriend}
               >
-                Add Friend
+                Follow
               </button>
             ) : (
               <button
                 className="hover:text-red-600 transition hover:bg-white bg-red-500 px-2 py-1 rounded-xl text-sm text-white"
                 onClick={unFriend}
               >
-                Unfriend
+                Unfollow
               </button>
             )}
           </div>

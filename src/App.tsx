@@ -16,6 +16,7 @@ import Events from "./components/Events/Events";
 import CreateEvent from "./components/Events/CreateEvent";
 import AppLayout from "./layout/AppLayout";
 import AuthLayout from "./layout/AuthLayout";
+import SignUpEntry from "./components/SignUpEntry";
 
 function App() {
   const [user_data, setUserData] = useState<any>([]);
@@ -62,6 +63,7 @@ function App() {
         </BrowserRouter> */}
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<SignUpEntry />} />
             <Route path="/app/*" element={<AppLayout />} />
             <Route path="/auth/*" element={<AuthLayout />} />
           </Routes>

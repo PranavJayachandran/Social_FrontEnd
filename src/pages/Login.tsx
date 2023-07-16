@@ -55,7 +55,11 @@ const Login = () => {
 
         fetch(`${process.env.REACT_APP_BACKEND}/createUser`, requestOptions)
           .then((response) => response.text())
-          .then(async (result) => {})
+          .then(async (result) => {
+            while (setUserData == undefined);
+            localStorage.setItem("user_id", result);
+            setUserData(await getUserData(result));
+          })
           .catch((error) => console.log("error", error));
 
         setMessage("Verification Mail has been set");

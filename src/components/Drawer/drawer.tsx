@@ -74,6 +74,10 @@ const Drawer = () => {
     navigate("/auth/login");
   };
 
+  useEffect(() => {
+    console.log(user_data);
+  }, [user_data]);
+
   return (
     <div
       className={` hide_scroll overflow-scroll ${

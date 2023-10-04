@@ -30,11 +30,7 @@ async function getUserData(id: string) {
     .then(async (result: any) => {
       user_data = result;
 
-      let image_link = await getImageSigned(
-        user_data.user_image,
-        "UserImages",
-        6000
-      );
+      let image_link = "Sdsd";
       user_data = {
         ...user_data,
         user_image_link: image_link,

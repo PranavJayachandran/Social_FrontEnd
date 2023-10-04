@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -89,10 +89,11 @@ const Login = () => {
           body: raw,
           redirect: "follow",
         };
-        while (setUserData == undefined);
         localStorage.setItem("user_id", data.user.id);
-        setUserData(await getUserData(data.user.id));
-        navigate("/app/home");
+        if (setUserData) {
+          setUserData(await getUserData(data.user.id));
+          navigate("/app/home");
+        }
       }
     }
     setEmail("");
